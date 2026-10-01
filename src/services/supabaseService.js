@@ -280,6 +280,18 @@ export const supabaseService = {
       created_at: new Date().toISOString(),
     };
 
+    // Attach the signed-in customer so they can see this order in their history.
+    try {
+      if (supabase) {
+        const { data: authData } = await supabase.auth.getUser();
+        if (authData?.user?.id) {
+          normalizedOrder.user_id = authData.user.id;
+        }
+      }
+    } catch {
+      // Guest checkout — order stays unlinked.
+    }
+
     // Try Supabase insert
     try {
       if (supabase) {
