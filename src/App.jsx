@@ -570,6 +570,15 @@ export default function App() {
           setMobileFiltersOpen(true);
         }}
         onOpenDashboard={() => setCurrentView("dashboard")}
+        authUser={auth.user}
+        isStaff={auth.isStaff}
+        onSignIn={() => {
+          window.location.href = "/auth?redirect=%2F";
+        }}
+        onSignOut={async () => {
+          await auth.signOut();
+          showToast("Signed out");
+        }}
         selectedArea={selectedArea}
         setSelectedArea={setSelectedArea}
       />
