@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ApiPublicMenuRouteImport } from './routes/api/public/menu'
+import { Route as ApiPublicMenuIdRouteImport } from './routes/api/public/menu.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +29,43 @@ const ApiPublicMenuRoute = ApiPublicMenuRouteImport.update({
   path: '/api/public/menu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicMenuIdRoute = ApiPublicMenuIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ApiPublicMenuRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/api/public/menu': typeof ApiPublicMenuRoute
+  '/api/public/menu': typeof ApiPublicMenuRouteWithChildren
+  '/api/public/menu/$id': typeof ApiPublicMenuIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/api/public/menu': typeof ApiPublicMenuRoute
+  '/api/public/menu': typeof ApiPublicMenuRouteWithChildren
+  '/api/public/menu/$id': typeof ApiPublicMenuIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/api/public/menu': typeof ApiPublicMenuRoute
+  '/api/public/menu': typeof ApiPublicMenuRouteWithChildren
+  '/api/public/menu/$id': typeof ApiPublicMenuIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/api/public/menu'
+  fullPaths: '/' | '/auth' | '/api/public/menu' | '/api/public/menu/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/api/public/menu'
-  id: '__root__' | '/' | '/auth' | '/api/public/menu'
+  to: '/' | '/auth' | '/api/public/menu' | '/api/public/menu/$id'
+  id: '__root__' | '/' | '/auth' | '/api/public/menu' | '/api/public/menu/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
-  ApiPublicMenuRoute: typeof ApiPublicMenuRoute
+  ApiPublicMenuRoute: typeof ApiPublicMenuRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -82,13 +91,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicMenuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/menu/$id': {
+      id: '/api/public/menu/$id'
+      path: '/$id'
+      fullPath: '/api/public/menu/$id'
+      preLoaderRoute: typeof ApiPublicMenuIdRouteImport
+      parentRoute: typeof ApiPublicMenuRoute
+    }
   }
 }
+
+interface ApiPublicMenuRouteChildren {
+  ApiPublicMenuIdRoute: typeof ApiPublicMenuIdRoute
+}
+
+const ApiPublicMenuRouteChildren: ApiPublicMenuRouteChildren = {
+  ApiPublicMenuIdRoute: ApiPublicMenuIdRoute,
+}
+
+const ApiPublicMenuRouteWithChildren = ApiPublicMenuRoute._addFileChildren(
+  ApiPublicMenuRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
-  ApiPublicMenuRoute: ApiPublicMenuRoute,
+  ApiPublicMenuRoute: ApiPublicMenuRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
