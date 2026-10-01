@@ -15,6 +15,7 @@ import { Route as ApiPublicCategoriesRouteImport } from './routes/api/public/cat
 import { Route as ApiPublicMenuRouteImport } from './routes/api/public/menu'
 import { Route as ApiPublicOrdersRouteImport } from './routes/api/public/orders'
 import { Route as ApiPublicMenuIdRouteImport } from './routes/api/public/menu.$id'
+import { Route as ApiPublicOrdersOrderIdRouteImport } from './routes/api/public/orders.$orderId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,22 +47,29 @@ const ApiPublicMenuIdRoute = ApiPublicMenuIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => ApiPublicMenuRoute,
 } as any)
+const ApiPublicOrdersOrderIdRoute = ApiPublicOrdersOrderIdRouteImport.update({
+  id: '/$orderId',
+  path: '/$orderId',
+  getParentRoute: () => ApiPublicOrdersRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/api/public/categories': typeof ApiPublicCategoriesRoute
   '/api/public/menu': typeof ApiPublicMenuRouteWithChildren
-  '/api/public/orders': typeof ApiPublicOrdersRoute
+  '/api/public/orders': typeof ApiPublicOrdersRouteWithChildren
   '/api/public/menu/$id': typeof ApiPublicMenuIdRoute
+  '/api/public/orders/$orderId': typeof ApiPublicOrdersOrderIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/api/public/categories': typeof ApiPublicCategoriesRoute
   '/api/public/menu': typeof ApiPublicMenuRouteWithChildren
-  '/api/public/orders': typeof ApiPublicOrdersRoute
+  '/api/public/orders': typeof ApiPublicOrdersRouteWithChildren
   '/api/public/menu/$id': typeof ApiPublicMenuIdRoute
+  '/api/public/orders/$orderId': typeof ApiPublicOrdersOrderIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,8 +77,9 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/api/public/categories': typeof ApiPublicCategoriesRoute
   '/api/public/menu': typeof ApiPublicMenuRouteWithChildren
-  '/api/public/orders': typeof ApiPublicOrdersRoute
+  '/api/public/orders': typeof ApiPublicOrdersRouteWithChildren
   '/api/public/menu/$id': typeof ApiPublicMenuIdRoute
+  '/api/public/orders/$orderId': typeof ApiPublicOrdersOrderIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/api/public/menu'
     | '/api/public/orders'
     | '/api/public/menu/$id'
+    | '/api/public/orders/$orderId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -89,6 +99,7 @@ export interface FileRouteTypes {
     | '/api/public/menu'
     | '/api/public/orders'
     | '/api/public/menu/$id'
+    | '/api/public/orders/$orderId'
   id:
     | '__root__'
     | '/'
@@ -97,6 +108,7 @@ export interface FileRouteTypes {
     | '/api/public/menu'
     | '/api/public/orders'
     | '/api/public/menu/$id'
+    | '/api/public/orders/$orderId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -104,7 +116,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ApiPublicCategoriesRoute: typeof ApiPublicCategoriesRoute
   ApiPublicMenuRoute: typeof ApiPublicMenuRouteWithChildren
-  ApiPublicOrdersRoute: typeof ApiPublicOrdersRoute
+  ApiPublicOrdersRoute: typeof ApiPublicOrdersRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -151,6 +163,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicMenuIdRouteImport
       parentRoute: typeof ApiPublicMenuRoute
     }
+    '/api/public/orders/$orderId': {
+      id: '/api/public/orders/$orderId'
+      path: '/$orderId'
+      fullPath: '/api/public/orders/$orderId'
+      preLoaderRoute: typeof ApiPublicOrdersOrderIdRouteImport
+      parentRoute: typeof ApiPublicOrdersRoute
+    }
   }
 }
 
@@ -166,12 +185,24 @@ const ApiPublicMenuRouteWithChildren = ApiPublicMenuRoute._addFileChildren(
   ApiPublicMenuRouteChildren,
 )
 
+interface ApiPublicOrdersRouteChildren {
+  ApiPublicOrdersOrderIdRoute: typeof ApiPublicOrdersOrderIdRoute
+}
+
+const ApiPublicOrdersRouteChildren: ApiPublicOrdersRouteChildren = {
+  ApiPublicOrdersOrderIdRoute: ApiPublicOrdersOrderIdRoute,
+}
+
+const ApiPublicOrdersRouteWithChildren = ApiPublicOrdersRoute._addFileChildren(
+  ApiPublicOrdersRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   ApiPublicCategoriesRoute: ApiPublicCategoriesRoute,
   ApiPublicMenuRoute: ApiPublicMenuRouteWithChildren,
-  ApiPublicOrdersRoute: ApiPublicOrdersRoute,
+  ApiPublicOrdersRoute: ApiPublicOrdersRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
