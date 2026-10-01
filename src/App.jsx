@@ -469,6 +469,17 @@ export default function App() {
   // RENDER ADMIN DASHBOARD VIEW
   // ==========================================
   if (currentView === "dashboard") {
+    // Role-based access control: only staff and admins may open the dashboard.
+    if (!auth.isStaff) {
+      return (
+        <StaffAccessGate
+          auth={auth}
+          onReturnToStore={() => setCurrentView("storefront")}
+          onShowToast={showToast}
+        />
+      );
+    }
+
     return (
       <div className="min-h-screen bg-[#F7F2EB]">
         {toast && (
