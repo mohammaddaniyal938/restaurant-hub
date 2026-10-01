@@ -39,6 +39,10 @@ export default function Header({
   setSelectedArea,
   currentPage = "home",
   onNavigate,
+  authUser = null,
+  isStaff = false,
+  onSignIn,
+  onSignOut,
 }) {
   const [areaDropdownOpen, setAreaDropdownOpen] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
@@ -66,12 +70,33 @@ export default function Header({
               <IconFlame className="w-3.5 h-3.5 text-yellow-300" /> 100% Halal Fresh
             </span>
 
+            {authUser ? (
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-bold text-white/90 max-w-[160px] truncate">
+                  {authUser.email}
+                </span>
+                <button
+                  onClick={onSignOut}
+                  className="bg-black/30 hover:bg-black/50 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors"
+                >
+                  Sign out
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={onSignIn}
+                className="bg-white/20 hover:bg-white/30 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors"
+              >
+                Sign in
+              </button>
+            )}
+
             <button
               onClick={onOpenDashboard}
               className="bg-black/30 hover:bg-black/50 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 transition-colors"
             >
               <IconDashboard className="w-3 h-3 text-[#F5A623]" />
-              <span>Admin Dashboard</span>
+              <span>{isStaff ? "Restaurant Dashboard" : "Staff Login"}</span>
               {activeOrdersCount > 0 && (
                 <span className="bg-amber-400 text-black px-1 rounded-full text-[9px] font-black">
                   {activeOrdersCount}
