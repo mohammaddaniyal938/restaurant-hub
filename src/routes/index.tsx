@@ -1,24 +1,37 @@
 import { createFileRoute } from "@tanstack/react-router";
+// @ts-expect-error -- JSX storefront application
+import App from "@/App.jsx";
+// @ts-expect-error -- JSX auth provider
+import { AuthProvider } from "@/lib/auth-context.jsx";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  // The storefront keeps cart, favorites and session state in the browser.
+  ssr: false,
+  head: () => ({
+    meta: [
+      { title: "KarachiBites — Burgers, Shawarma & Pizza Delivered in Karachi" },
+      {
+        name: "description",
+        content:
+          "Order 100% Halal gourmet burgers, Lebanese shawarma, handcrafted pizzas and loaded fries from KarachiBites. Live order tracking across Karachi, 12 PM – 4 AM.",
+      },
+      { property: "og:title", content: "KarachiBites — Karachi's Favorite Fast Food Delivery" },
+      {
+        property: "og:description",
+        content:
+          "Browse the KarachiBites menu, build your cart and track your delivery live across Clifton, DHA, Gulshan and more.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   );
 }
