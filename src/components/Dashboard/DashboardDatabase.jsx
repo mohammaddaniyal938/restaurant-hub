@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { supabase } from "../../supabaseClient";
+import { supabase } from "@/integrations/supabase/client";
 import { supabaseService } from "../../services/supabaseService";
 import { IconShieldCheck, IconCheckCircle, IconCopy } from "../Icons";
 
