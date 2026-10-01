@@ -52,18 +52,12 @@ export const setUserRole = createServerFn({ method: "POST" })
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const { data: profile, error: profileError } = await supabaseAdmin
-      .from("profiles")
-      .select("id")
-      .eq("email", data.email)
-      .maybeSingle();
-
-    let targetId = profile?.id as string | undefined;
-
-    if (!targetId && !profileError) {
-      const { data: list } = await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 200 });
-      targetId = list?.users?.find((u) => u.email?.toLowerCase() === data.email)?.id;
-    }
+    const { data: list, error: listError } = await supabaseAdmin.auth.admin.listUsers({
+      page: 1,
+      perPage: 1000,
+    });
+    if (listError) throw new Error(listError.message);
+    const targetId = list?.users?.find((u) => u.email?.toLowerCase() === data.email)?.id;
 
     if (!targetId) throw new Error("No user found with that email address.");
 
