@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ApiPublicCategoriesRouteImport } from './routes/api/public/categories'
 import { Route as ApiPublicMenuRouteImport } from './routes/api/public/menu'
 import { Route as ApiPublicOrdersRouteImport } from './routes/api/public/orders'
@@ -25,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicCategoriesRoute = ApiPublicCategoriesRouteImport.update({
@@ -56,6 +62,7 @@ const ApiPublicOrdersOrderIdRoute = ApiPublicOrdersOrderIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/api/public/categories': typeof ApiPublicCategoriesRoute
   '/api/public/menu': typeof ApiPublicMenuRouteWithChildren
   '/api/public/orders': typeof ApiPublicOrdersRouteWithChildren
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/api/public/categories': typeof ApiPublicCategoriesRoute
   '/api/public/menu': typeof ApiPublicMenuRouteWithChildren
   '/api/public/orders': typeof ApiPublicOrdersRouteWithChildren
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/api/public/categories': typeof ApiPublicCategoriesRoute
   '/api/public/menu': typeof ApiPublicMenuRouteWithChildren
   '/api/public/orders': typeof ApiPublicOrdersRouteWithChildren
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/reset-password'
     | '/api/public/categories'
     | '/api/public/menu'
     | '/api/public/orders'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/reset-password'
     | '/api/public/categories'
     | '/api/public/menu'
     | '/api/public/orders'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/auth'
+    | '/reset-password'
     | '/api/public/categories'
     | '/api/public/menu'
     | '/api/public/orders'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   ApiPublicCategoriesRoute: typeof ApiPublicCategoriesRoute
   ApiPublicMenuRoute: typeof ApiPublicMenuRouteWithChildren
   ApiPublicOrdersRoute: typeof ApiPublicOrdersRouteWithChildren
@@ -133,6 +146,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/categories': {
@@ -200,6 +220,7 @@ const ApiPublicOrdersRouteWithChildren = ApiPublicOrdersRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   ApiPublicCategoriesRoute: ApiPublicCategoriesRoute,
   ApiPublicMenuRoute: ApiPublicMenuRouteWithChildren,
   ApiPublicOrdersRoute: ApiPublicOrdersRouteWithChildren,
