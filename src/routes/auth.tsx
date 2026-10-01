@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // @ts-expect-error -- JSX auth provider
 import { AuthProvider, useAuth } from "@/lib/auth-context.jsx";
 
-type AuthSearch = { redirect?: string };
+type AuthSearch = { redirect?: string | undefined };
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
