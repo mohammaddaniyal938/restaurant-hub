@@ -25,6 +25,9 @@ const STORAGE_KEYS = {
 };
 
 export default function App() {
+  // Authentication + role information (customer / staff / admin)
+  const auth = useAuth();
+
   // ==========================================
   // VIEW MODE: "storefront" | "dashboard"
   // ==========================================
