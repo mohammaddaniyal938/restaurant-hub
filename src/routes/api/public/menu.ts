@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createPublicClient, json, preflight } from "@/lib/api-helpers.server";
 
+const MENU_COLUMNS =
+  "id, title, description, price, category, image, rating, reviews_count, is_spicy, is_veg, badge, calories, prep_time, ingredients, addons, in_stock";
+
 /** GET /api/public/menu — public menu listing with optional filters. */
 export const Route = createFileRoute("/api/public/menu")({
   server: {
@@ -10,14 +13,14 @@ export const Route = createFileRoute("/api/public/menu")({
         const url = new URL(request.url);
         const category = url.searchParams.get("category");
         const search = url.searchParams.get("search");
-        const limit = Math.min(Math.max(Number(url.searchParams.get("limit") ?? 100), 1), 200);
-        const offset = Math.max(Number(url.searchParams.get("offset") ?? 0), 0);
+        const limit = Math.min(Math.max(Number(url.searchParams.get("limit") ?? 100) || 100, 1), 200);
+        const offset = Math.max(Number(url.searchParams.get("offset") ?? 0) || 0, 0);
 
         const supabase = createPublicClient();
         let query = supabase
           .from("products")
-          .select("id, title, description, price, category, image, rating, spicy, veg, bestseller, available")
-          .eq("available", true)
+          .select(MENU_COLUMNS)
+          .eq("in_stock", true)
           .order("id", { ascending: true })
           .range(offset, offset + limit - 1);
 
