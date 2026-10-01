@@ -16,6 +16,8 @@ import OrderReceiptModal from "./components/OrderReceiptModal";
 import MobileBottomNav from "./components/MobileBottomNav";
 import AdminDashboard from "./components/Dashboard/AdminDashboard";
 import Toast from "./components/Toast";
+import StaffAccessGate from "./components/StaffAccessGate";
+import { useAuth } from "./lib/auth-context.jsx";
 
 const STORAGE_KEYS = {
   CART: "karachi_bites_cart_v2",
