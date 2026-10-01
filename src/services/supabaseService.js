@@ -1,4 +1,4 @@
-import { supabase } from "../supabaseClient";
+import { supabase } from "@/integrations/supabase/client";
 import { products as fallbackProducts } from "../data/products";
 
 const LOCAL_STORAGE_KEYS = {
