@@ -14,9 +14,7 @@ import OrderHistoryModal from "./components/OrderHistoryModal";
 import OrderTrackingModal from "./components/OrderTrackingModal";
 import OrderReceiptModal from "./components/OrderReceiptModal";
 import MobileBottomNav from "./components/MobileBottomNav";
-import AdminDashboard from "./components/Dashboard/AdminDashboard";
 import Toast from "./components/Toast";
-import StaffAccessGate from "./components/StaffAccessGate";
 import { useAuth } from "./lib/auth-context.jsx";
 
 const STORAGE_KEYS = {
@@ -30,10 +28,6 @@ export default function App() {
   // Authentication + role information (customer / staff / admin)
   const auth = useAuth();
 
-  // ==========================================
-  // VIEW MODE: "storefront" | "dashboard"
-  // ==========================================
-  const [currentView, setCurrentView] = useState("storefront");
   const [storefrontPage, setStorefrontPage] = useState("home");
 
   // ==========================================
@@ -89,7 +83,7 @@ export default function App() {
   // Compute active orders count for kitchen badge
   const activeOrdersCount = useMemo(() => {
     return orders.filter(
-      (o) => o.status === "pending" || o.status === "preparing" || o.status === "out_for_delivery"
+      (o) => o.status === "pending" || o.status === "preparing" || o.status === "out_for_delivery",
     ).length;
   }, [orders]);
 
@@ -255,7 +249,8 @@ export default function App() {
       // 4. Tags
       if (onlySpicy && !product.isSpicy) return false;
       if (onlyVeg && !product.isVeg) return false;
-      if (onlyBestseller && product.badge !== "Bestseller" && product.badge !== "Popular") return false;
+      if (onlyBestseller && product.badge !== "Bestseller" && product.badge !== "Popular")
+        return false;
 
       // 5. Search
       let searchMatch = true;
@@ -446,7 +441,7 @@ export default function App() {
   const handleUpdateProduct = async (id, updates) => {
     const updated = await supabaseService.updateProduct(id, updates);
     setProducts((prev) =>
-      prev.map((p) => (String(p.id) === String(id) ? { ...p, ...updated } : p))
+      prev.map((p) => (String(p.id) === String(id) ? { ...p, ...updated } : p)),
     );
   };
 
@@ -457,71 +452,26 @@ export default function App() {
 
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
     await supabaseService.updateOrderStatus(orderId, newStatus);
-    setOrders((prev) =>
-      prev.map((o) => (o.orderId === orderId ? { ...o, status: newStatus } : o))
-    );
+    setOrders((prev) => prev.map((o) => (o.orderId === orderId ? { ...o, status: newStatus } : o)));
     if (activeTrackingOrder && activeTrackingOrder.orderId === orderId) {
       setActiveTrackingOrder((prev) => ({ ...prev, status: newStatus }));
     }
   };
 
   // ==========================================
-  // RENDER ADMIN DASHBOARD VIEW
-  // ==========================================
-  if (currentView === "dashboard") {
-    // Role-based access control: only staff and admins may open the dashboard.
-    if (!auth.isStaff) {
-      return (
-        <StaffAccessGate
-          auth={auth}
-          onReturnToStore={() => setCurrentView("storefront")}
-          onShowToast={showToast}
-        />
-      );
-    }
-
-    return (
-      <div className="min-h-screen bg-[#F7F2EB]">
-        {toast && (
-          <Toast
-            message={toast.message}
-            type={toast.type}
-            onClose={() => setToast(null)}
-          />
-        )}
-
-        <AdminDashboard
-          orders={orders}
-          products={products}
-          onReturnToStore={() => setCurrentView("storefront")}
-          onAddProduct={handleAddProduct}
-          onUpdateProduct={handleUpdateProduct}
-          onDeleteProduct={handleDeleteProduct}
-          onUpdateOrderStatus={handleUpdateOrderStatus}
-          onShowToast={showToast}
-          onRefreshData={() => {
-            loadProducts();
-            loadOrders();
-          }}
-        />
-      </div>
-    );
-  }
-
-  // ==========================================
   // LOADING SCREEN
   // ==========================================
   if (loading && products.length === 0) {
     return (
-      <div className="min-h-screen bg-[#FFFDF9] flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#171B19] flex items-center justify-center p-4">
         <div className="text-center animate-fade-in">
-          <div className="w-20 h-20 rounded-3xl bg-[#E4572E] text-white flex items-center justify-center text-4xl mx-auto mb-4 shadow-xl shadow-[#E4572E]/30 animate-bounce">
+          <div className="w-20 h-20 rounded-3xl bg-[#718C56] text-white flex items-center justify-center text-4xl mx-auto mb-4 shadow-xl shadow-[#718C56]/30 animate-bounce">
             🍔
           </div>
-          <h2 className="font-display font-extrabold text-2xl text-[#1C1715]">
-            Karachi<span className="text-[#E4572E]">Bites</span>
+          <h2 className="font-display font-extrabold text-2xl text-[#E4E8E5]">
+            Karachi<span className="text-[#718C56]">Bites</span>
           </h2>
-          <p className="text-xs text-[#665C54] mt-2 font-medium">
+          <p className="text-xs text-[#AFB8B0] mt-2 font-medium">
             Fetching fresh menu from Supabase...
           </p>
         </div>
@@ -538,16 +488,9 @@ export default function App() {
   // STOREFRONT APPLICATION LAYOUT
   // ==========================================
   return (
-    <div className="min-h-screen bg-[#FFFDF9] text-[#1C1715] flex flex-col antialiased selection:bg-[#E4572E] selection:text-white pb-16 lg:pb-0">
-      
+    <div className="min-h-screen bg-[#171B19] text-[#E4E8E5] flex flex-col antialiased selection:bg-[#718C56] selection:text-white pb-16 lg:pb-0">
       {/* 1. TOAST NOTIFICATIONS */}
-      {toast && (
-        <Toast
-          message={toast.message}
-          type={toast.type}
-          onClose={() => setToast(null)}
-        />
-      )}
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
 
       {/* 2. HEADER */}
       <Header
@@ -569,9 +512,7 @@ export default function App() {
           navigateStorefront("menu");
           setMobileFiltersOpen(true);
         }}
-        onOpenDashboard={() => setCurrentView("dashboard")}
         authUser={auth.user}
-        isStaff={auth.isStaff}
         onSignIn={() => {
           window.location.href = "/auth?redirect=%2F";
         }}
@@ -632,40 +573,81 @@ export default function App() {
       )}
 
       {/* 5. FOOTER */}
-      <footer className="bg-[#161311] text-white border-t border-white/10 mt-16 pt-12 pb-16 lg:pb-12">
+      <footer className="bg-[#171B19] text-white border-t border-white/10 mt-16 pt-12 pb-16 lg:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-white/10">
             {/* Brand column */}
             <div className="space-y-3 md:col-span-1">
               <div className="flex items-center gap-2">
-                <span className="w-9 h-9 rounded-xl bg-[#E4572E] flex items-center justify-center text-lg">
+                <span className="w-9 h-9 rounded-xl bg-[#718C56] flex items-center justify-center text-lg">
                   🍔
                 </span>
                 <span className="font-display font-extrabold text-xl tracking-tight text-white">
-                  Karachi<span className="text-[#E4572E]">Bites</span>
+                  Karachi<span className="text-[#718C56]">Bites</span>
                 </span>
               </div>
               <p className="text-xs text-white/60 leading-relaxed font-normal">
-                Karachi's favorite destination for authentic street flavors, gourmet burgers, and loaded shawarmas crafted with 100% Halal fresh ingredients.
+                Karachi's favorite destination for authentic street flavors, gourmet burgers, and
+                loaded shawarmas crafted with 100% Halal fresh ingredients.
               </p>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h4 className="font-display font-bold text-sm text-white mb-3 uppercase tracking-wider text-[#F5A623]">
+              <h4 className="font-display font-bold text-sm text-white mb-3 uppercase tracking-wider text-[#C5E879]">
                 Menu Highlights
               </h4>
               <ul className="space-y-2 text-xs text-white/70">
-                <li><button onClick={() => { setCategory("Burgers"); navigateStorefront("menu"); }} className="hover:text-white">Gourmet Beef Burgers</button></li>
-                <li><button onClick={() => { setCategory("Shawarma"); navigateStorefront("menu"); }} className="hover:text-white">Lebanese Chicken Shawarma</button></li>
-                <li><button onClick={() => { setCategory("Pizza"); navigateStorefront("menu"); }} className="hover:text-white">Handcrafted Fajita Pizzas</button></li>
-                <li><button onClick={() => { setCategory("Sides"); navigateStorefront("menu"); }} className="hover:text-white">Dynamite Loaded Fries</button></li>
+                <li>
+                  <button
+                    onClick={() => {
+                      setCategory("Burgers");
+                      navigateStorefront("menu");
+                    }}
+                    className="hover:text-white"
+                  >
+                    Gourmet Beef Burgers
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      setCategory("Shawarma");
+                      navigateStorefront("menu");
+                    }}
+                    className="hover:text-white"
+                  >
+                    Lebanese Chicken Shawarma
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      setCategory("Pizza");
+                      navigateStorefront("menu");
+                    }}
+                    className="hover:text-white"
+                  >
+                    Handcrafted Fajita Pizzas
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      setCategory("Sides");
+                      navigateStorefront("menu");
+                    }}
+                    className="hover:text-white"
+                  >
+                    Dynamite Loaded Fries
+                  </button>
+                </li>
               </ul>
             </div>
 
             {/* Delivery Areas */}
             <div>
-              <h4 className="font-display font-bold text-sm text-white mb-3 uppercase tracking-wider text-[#F5A623]">
+              <h4 className="font-display font-bold text-sm text-white mb-3 uppercase tracking-wider text-[#C5E879]">
                 Express Delivery Zones
               </h4>
               <ul className="space-y-1.5 text-xs text-white/70">
@@ -678,25 +660,21 @@ export default function App() {
 
             {/* Contact & Hours */}
             <div>
-              <h4 className="font-display font-bold text-sm text-white mb-3 uppercase tracking-wider text-[#F5A623]">
+              <h4 className="font-display font-bold text-sm text-white mb-3 uppercase tracking-wider text-[#C5E879]">
                 Karachi Hotline & Admin
               </h4>
-              <p className="text-xs text-white/70 mb-1">📞 Order Helpline: <strong>(021) 111-BITES-0</strong></p>
+              <p className="text-xs text-white/70 mb-1">
+                📞 Order Helpline: <strong>(021) 111-BITES-0</strong>
+              </p>
               <p className="text-xs text-white/70 mb-1">🕒 Daily Timings: 12:00 PM – 4:00 AM</p>
-              <div className="pt-2">
-                <button
-                  onClick={() => setCurrentView("dashboard")}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#E4572E] hover:underline"
-                >
-                  <span>Open Restaurant Dashboard</span>
-                  <span>→</span>
-                </button>
-              </div>
             </div>
           </div>
 
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-white/50 gap-3">
-            <p>© {new Date().getFullYear()} Karachi Bites. All rights reserved. Powered by Supabase Backend.</p>
+            <p>
+              © {new Date().getFullYear()} Karachi Bites. All rights reserved. Powered by Supabase
+              Backend.
+            </p>
             <div className="flex gap-4">
               <span className="hover:text-white cursor-pointer">Privacy Policy</span>
               <span className="hover:text-white cursor-pointer">Terms of Service</span>
@@ -826,7 +804,6 @@ export default function App() {
           }}
         />
       )}
-
     </div>
   );
 }

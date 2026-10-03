@@ -3,8 +3,8 @@ import type { Database } from "@/integrations/supabase/types";
 
 /** Publishable-key client for public, read-only Data API access from the server. */
 export function createPublicClient() {
-  const key = process.env['SUPABASE_PUBLISHABLE_KEY']!;
-  const url = process.env['SUPABASE_URL']!;
+  const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
+  const url = process.env["SUPABASE_URL"]!;
 
   return createClient<Database>(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
@@ -26,8 +26,8 @@ export async function authenticateRequest(request: Request) {
   const token = request.headers.get("authorization")?.replace(/^Bearer\s+/i, "");
   if (!token) return { user: null, supabase: null } as const;
 
-  const key = process.env['SUPABASE_PUBLISHABLE_KEY']!;
-  const url = process.env['SUPABASE_URL']!;
+  const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
+  const url = process.env["SUPABASE_URL"]!;
 
   const supabase = createClient<Database>(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },

@@ -1,8 +1,5 @@
 import { useState } from "react";
-import {
-  getReviewsByProductId,
-  addReviewToStorage,
-} from "../data/product-rating";
+import { getReviewsByProductId, addReviewToStorage } from "../data/product-rating";
 import {
   IconStar,
   IconX,
@@ -29,7 +26,7 @@ export default function FoodDetailsModal({
   const [spiceLevel, setSpiceLevel] = useState("Medium");
   const [specialInstructions, setSpecialInstructions] = useState("");
   const [activeTab, setActiveTab] = useState("details"); // "details" | "reviews"
-  
+
   // Reviews state initialized from product
   const [reviewsList, setReviewsList] = useState(() => {
     return product ? getReviewsByProductId(product.id) : [];
@@ -44,7 +41,7 @@ export default function FoodDetailsModal({
     setSelectedAddons((prev) =>
       prev.some((a) => a.id === addon.id)
         ? prev.filter((a) => a.id !== addon.id)
-        : [...prev, addon]
+        : [...prev, addon],
     );
   };
 
@@ -93,23 +90,23 @@ export default function FoodDetailsModal({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-4xl max-h-[92vh] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row animate-pop-in"
+        className="relative w-full max-w-4xl max-h-[92vh] bg-[#252B28] rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row animate-pop-in"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-[#161311] text-[#1C1715] hover:text-white backdrop-blur-md shadow-lg flex items-center justify-center transition-all duration-200"
+          className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-[#171B19] text-[#E4E8E5] hover:text-white backdrop-blur-md shadow-lg flex items-center justify-center transition-all duration-200"
           aria-label="Close dialog"
         >
           <IconX className="w-5 h-5" />
         </button>
 
         {/* LEFT COLUMN: Food Imagery & Quick Nutrition Badges */}
-        <div className="w-full md:w-5/12 bg-[#161311] relative p-6 flex flex-col justify-between shrink-0">
+        <div className="w-full md:w-5/12 bg-[#171B19] relative p-6 flex flex-col justify-between shrink-0">
           <div className="relative z-10">
             <div className="flex items-center justify-between mb-4">
-              <span className="bg-[#E4572E] text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">
+              <span className="bg-[#718C56] text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">
                 {product.category}
               </span>
               <button
@@ -119,19 +116,15 @@ export default function FoodDetailsModal({
               >
                 <IconHeart
                   className={`w-4 h-4 ${
-                    isFavorite ? "text-[#E4572E] fill-[#E4572E]" : "text-white"
+                    isFavorite ? "text-[#718C56] fill-[#718C56]" : "text-white"
                   }`}
                 />
               </button>
             </div>
 
             {/* Food Image */}
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl h-56 sm:h-64 md:h-72 w-full bg-[#231F1C]">
-              <img
-                src={product.image}
-                alt={product.title}
-                className="w-full h-full object-cover"
-              />
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl h-56 sm:h-64 md:h-72 w-full bg-[#252B28]">
+              <img src={product.image} alt={product.title} className="w-full h-full object-cover" />
             </div>
           </div>
 
@@ -140,59 +133,54 @@ export default function FoodDetailsModal({
             <div className="text-center p-2 rounded-xl bg-white/5">
               <p className="text-[10px] text-white/50 uppercase font-semibold">Prep Time</p>
               <p className="text-xs font-bold text-white flex items-center justify-center gap-1 mt-0.5">
-                <IconClock className="w-3 h-3 text-[#E4572E]" /> {product.prepTime || "15 min"}
+                <IconClock className="w-3 h-3 text-[#718C56]" /> {product.prepTime || "15 min"}
               </p>
             </div>
 
             <div className="text-center p-2 rounded-xl bg-white/5">
               <p className="text-[10px] text-white/50 uppercase font-semibold">Calories</p>
               <p className="text-xs font-bold text-white flex items-center justify-center gap-1 mt-0.5">
-                <IconFlame className="w-3 h-3 text-[#F5A623]" /> {product.calories || "650 kcal"}
+                <IconFlame className="w-3 h-3 text-[#C5E879]" /> {product.calories || "650 kcal"}
               </p>
             </div>
 
             <div className="text-center p-2 rounded-xl bg-white/5">
               <p className="text-[10px] text-white/50 uppercase font-semibold">Quality</p>
               <p className="text-xs font-bold text-white flex items-center justify-center gap-1 mt-0.5">
-                <IconShieldCheck className="w-3 h-3 text-[#2E8B57]" /> 100% Halal
+                <IconShieldCheck className="w-3 h-3 text-[#718C56]" /> 100% Halal
               </p>
             </div>
           </div>
         </div>
 
         {/* RIGHT COLUMN: Customization, Reviews & Add to Cart */}
-        <div className="flex-1 flex flex-col justify-between bg-white max-h-[80vh] md:max-h-[92vh] overflow-hidden">
-          
+        <div className="flex-1 flex flex-col justify-between bg-[#252B28] max-h-[80vh] md:max-h-[92vh] overflow-hidden">
           {/* Top Bar with Tab Switcher */}
-          <div className="px-6 pt-5 pb-3 border-b border-[#1C1715]/10 flex items-center gap-4">
+          <div className="px-6 pt-5 pb-3 border-b border-[#E4E8E5]/10 flex items-center gap-4">
             <button
               onClick={() => setActiveTab("details")}
               className={`pb-2 text-xs sm:text-sm font-extrabold transition-colors relative ${
-                activeTab === "details"
-                  ? "text-[#E4572E]"
-                  : "text-[#665C54] hover:text-[#1C1715]"
+                activeTab === "details" ? "text-[#718C56]" : "text-[#AFB8B0] hover:text-[#E4E8E5]"
               }`}
             >
               Overview & Customization
               {activeTab === "details" && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#E4572E] rounded-full" />
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#718C56] rounded-full" />
               )}
             </button>
 
             <button
               onClick={() => setActiveTab("reviews")}
               className={`pb-2 text-xs sm:text-sm font-extrabold transition-colors relative flex items-center gap-1.5 ${
-                activeTab === "reviews"
-                  ? "text-[#E4572E]"
-                  : "text-[#665C54] hover:text-[#1C1715]"
+                activeTab === "reviews" ? "text-[#718C56]" : "text-[#AFB8B0] hover:text-[#E4E8E5]"
               }`}
             >
               <span>Customer Reviews</span>
-              <span className="bg-[#F7F2EB] text-[#1C1715] text-[10px] font-bold px-2 py-0.5 rounded-full">
+              <span className="bg-[#252B28] text-[#E4E8E5] text-[10px] font-bold px-2 py-0.5 rounded-full">
                 {reviewsList.length}
               </span>
               {activeTab === "reviews" && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#E4572E] rounded-full" />
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#718C56] rounded-full" />
               )}
             </button>
           </div>
@@ -204,20 +192,20 @@ export default function FoodDetailsModal({
                 {/* Title & Rating */}
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <div className="flex items-center gap-1 bg-[#FEF6E8] text-[#F5A623] px-2.5 py-0.5 rounded-full text-xs font-bold">
-                      <IconStar className="w-3.5 h-3.5 fill-[#F5A623]" />
+                    <div className="flex items-center gap-1 bg-[#303A2B] text-[#C5E879] px-2.5 py-0.5 rounded-full text-xs font-bold">
+                      <IconStar className="w-3.5 h-3.5 fill-[#C5E879]" />
                       <span>{product.rating}</span>
                     </div>
-                    <span className="text-xs text-[#665C54]">
+                    <span className="text-xs text-[#AFB8B0]">
                       ({reviewsList.length} verified reviews)
                     </span>
                   </div>
 
-                  <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-[#1C1715]">
+                  <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-[#E4E8E5]">
                     {product.title}
                   </h2>
 
-                  <p className="text-xs sm:text-sm text-[#665C54] mt-2 leading-relaxed font-normal">
+                  <p className="text-xs sm:text-sm text-[#AFB8B0] mt-2 leading-relaxed font-normal">
                     {product.description}
                   </p>
                 </div>
@@ -225,14 +213,14 @@ export default function FoodDetailsModal({
                 {/* Ingredients chips */}
                 {product.ingredients && product.ingredients.length > 0 && (
                   <div>
-                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#665C54] mb-2">
+                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#AFB8B0] mb-2">
                       Key Ingredients
                     </h3>
                     <div className="flex flex-wrap gap-1.5">
                       {product.ingredients.map((ing, idx) => (
                         <span
                           key={idx}
-                          className="bg-[#F7F2EB] text-[#1C1715] text-xs font-medium px-3 py-1 rounded-lg"
+                          className="bg-[#252B28] text-[#E4E8E5] text-xs font-medium px-3 py-1 rounded-lg"
                         >
                           {ing}
                         </span>
@@ -243,7 +231,7 @@ export default function FoodDetailsModal({
 
                 {/* Spice Level Selector */}
                 <div>
-                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#665C54] mb-2">
+                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#AFB8B0] mb-2">
                     Select Spice Level
                   </h3>
                   <div className="grid grid-cols-4 gap-2">
@@ -254,8 +242,8 @@ export default function FoodDetailsModal({
                         onClick={() => setSpiceLevel(lvl)}
                         className={`py-2 px-1 text-center rounded-xl text-xs font-bold border transition-all ${
                           spiceLevel === lvl
-                            ? "bg-[#E4572E] text-white border-[#E4572E] shadow"
-                            : "bg-[#F7F2EB]/50 border-transparent text-[#1C1715]/80 hover:bg-[#F7F2EB]"
+                            ? "bg-[#718C56] text-white border-[#718C56] shadow"
+                            : "bg-[#252B28]/50 border-transparent text-[#E4E8E5]/80 hover:bg-[#252B28]"
                         }`}
                       >
                         {lvl}
@@ -268,10 +256,10 @@ export default function FoodDetailsModal({
                 {product.addons && product.addons.length > 0 && (
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#665C54]">
+                      <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#AFB8B0]">
                         Extra Add-ons & Upgrades
                       </h3>
-                      <span className="text-[11px] text-[#665C54]">Optional</span>
+                      <span className="text-[11px] text-[#AFB8B0]">Optional</span>
                     </div>
 
                     <div className="space-y-2">
@@ -283,25 +271,23 @@ export default function FoodDetailsModal({
                             onClick={() => toggleAddon(addon)}
                             className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${
                               isChecked
-                                ? "bg-[#FFF1EC] border-[#E4572E] text-[#1C1715]"
-                                : "bg-white border-[#1C1715]/10 hover:border-[#E4572E]/40"
+                                ? "bg-[#303A2B] border-[#718C56] text-[#E4E8E5]"
+                                : "bg-[#252B28] border-[#E4E8E5]/10 hover:border-[#718C56]/40"
                             }`}
                           >
                             <div className="flex items-center gap-3">
                               <div
                                 className={`w-5 h-5 rounded-md flex items-center justify-center transition-colors ${
                                   isChecked
-                                    ? "bg-[#E4572E] text-white"
-                                    : "border border-gray-300 bg-white"
+                                    ? "bg-[#718C56] text-white"
+                                    : "border border-gray-300 bg-[#252B28]"
                                 }`}
                               >
                                 {isChecked && <IconCheck className="w-3.5 h-3.5" />}
                               </div>
-                              <span className="text-xs sm:text-sm font-semibold">
-                                {addon.name}
-                              </span>
+                              <span className="text-xs sm:text-sm font-semibold">{addon.name}</span>
                             </div>
-                            <span className="text-xs font-bold text-[#E4572E]">
+                            <span className="text-xs font-bold text-[#718C56]">
                               +Rs. {addon.price}
                             </span>
                           </div>
@@ -313,7 +299,7 @@ export default function FoodDetailsModal({
 
                 {/* Special Instructions */}
                 <div>
-                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#665C54] mb-1.5">
+                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#AFB8B0] mb-1.5">
                     Cooking Instructions
                   </h3>
                   <textarea
@@ -321,7 +307,7 @@ export default function FoodDetailsModal({
                     value={specialInstructions}
                     onChange={(e) => setSpecialInstructions(e.target.value)}
                     placeholder="e.g. Extra spicy sauce on the side, no onions, well-toasted bun..."
-                    className="w-full text-xs sm:text-sm p-3 rounded-xl bg-[#F7F2EB]/60 border border-[#1C1715]/10 focus:border-[#E4572E] focus:outline-none placeholder:text-[#665C54]/50 resize-none font-normal"
+                    className="w-full text-xs sm:text-sm p-3 rounded-xl bg-[#252B28]/60 border border-[#E4E8E5]/10 focus:border-[#718C56] focus:outline-none placeholder:text-[#AFB8B0]/50 resize-none font-normal"
                   />
                 </div>
               </div>
@@ -331,9 +317,9 @@ export default function FoodDetailsModal({
                 {/* Write a Review Form */}
                 <form
                   onSubmit={handleAddReview}
-                  className="bg-[#F7F2EB]/70 border border-[#1C1715]/10 rounded-2xl p-4 space-y-3"
+                  className="bg-[#252B28]/70 border border-[#E4E8E5]/10 rounded-2xl p-4 space-y-3"
                 >
-                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#1C1715]">
+                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#E4E8E5]">
                     Leave a Review for {product.title}
                   </h3>
 
@@ -344,11 +330,11 @@ export default function FoodDetailsModal({
                       placeholder="Your Name (e.g. Ali Khan)"
                       value={newReviewName}
                       onChange={(e) => setNewReviewName(e.target.value)}
-                      className="text-xs p-2.5 rounded-xl bg-white border border-[#1C1715]/10 focus:border-[#E4572E] focus:outline-none"
+                      className="text-xs p-2.5 rounded-xl bg-[#252B28] border border-[#E4E8E5]/10 focus:border-[#718C56] focus:outline-none"
                     />
 
-                    <div className="flex items-center justify-between bg-white px-3 py-2 rounded-xl border border-[#1C1715]/10">
-                      <span className="text-xs font-semibold text-[#665C54]">Your Rating:</span>
+                    <div className="flex items-center justify-between bg-[#252B28] px-3 py-2 rounded-xl border border-[#E4E8E5]/10">
+                      <span className="text-xs font-semibold text-[#AFB8B0]">Your Rating:</span>
                       <div className="flex gap-1">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <button
@@ -360,7 +346,7 @@ export default function FoodDetailsModal({
                             <IconStar
                               className={`w-4 h-4 ${
                                 star <= newReviewRating
-                                  ? "text-[#F5A623] fill-[#F5A623]"
+                                  ? "text-[#C5E879] fill-[#C5E879]"
                                   : "text-gray-300"
                               }`}
                             />
@@ -376,12 +362,12 @@ export default function FoodDetailsModal({
                     placeholder="Tell other foodies what you loved about this dish..."
                     value={newReviewComment}
                     onChange={(e) => setNewReviewComment(e.target.value)}
-                    className="w-full text-xs p-2.5 rounded-xl bg-white border border-[#1C1715]/10 focus:border-[#E4572E] focus:outline-none resize-none font-normal"
+                    className="w-full text-xs p-2.5 rounded-xl bg-[#252B28] border border-[#E4E8E5]/10 focus:border-[#718C56] focus:outline-none resize-none font-normal"
                   />
 
                   <button
                     type="submit"
-                    className="w-full py-2 bg-[#161311] hover:bg-[#E4572E] text-white font-bold text-xs rounded-xl transition-colors shadow"
+                    className="w-full py-2 bg-[#171B19] hover:bg-[#718C56] text-white font-bold text-xs rounded-xl transition-colors shadow"
                   >
                     Submit Review ⭐
                   </button>
@@ -390,37 +376,35 @@ export default function FoodDetailsModal({
                 {/* Reviews List */}
                 <div className="space-y-3">
                   {reviewsList.length === 0 ? (
-                    <p className="text-xs text-center py-6 text-[#665C54]">
+                    <p className="text-xs text-center py-6 text-[#AFB8B0]">
                       No reviews yet for this dish. Be the first to leave one!
                     </p>
                   ) : (
                     reviewsList.map((r, i) => (
                       <div
                         key={i}
-                        className="p-3.5 rounded-2xl bg-white border border-[#1C1715]/10 shadow-sm"
+                        className="p-3.5 rounded-2xl bg-[#252B28] border border-[#E4E8E5]/10 shadow-sm"
                       >
                         <div className="flex items-center justify-between gap-2 mb-1.5">
                           <div className="flex items-center gap-2">
-                            <div className="w-7 h-7 rounded-full bg-[#E4572E]/10 text-[#E4572E] font-bold text-xs flex items-center justify-center">
+                            <div className="w-7 h-7 rounded-full bg-[#718C56]/10 text-[#718C56] font-bold text-xs flex items-center justify-center">
                               {r.username.charAt(0)}
                             </div>
                             <div>
-                              <p className="text-xs font-bold text-[#1C1715]">
-                                {r.username}
-                              </p>
-                              <p className="text-[10px] text-[#665C54]">
+                              <p className="text-xs font-bold text-[#E4E8E5]">{r.username}</p>
+                              <p className="text-[10px] text-[#AFB8B0]">
                                 {r.date || "Verified Buyer"}
                               </p>
                             </div>
                           </div>
 
-                          <div className="flex items-center gap-0.5 text-xs text-[#F5A623] font-bold">
-                            <IconStar className="w-3.5 h-3.5 fill-[#F5A623]" />
+                          <div className="flex items-center gap-0.5 text-xs text-[#C5E879] font-bold">
+                            <IconStar className="w-3.5 h-3.5 fill-[#C5E879]" />
                             <span>{r.rating}</span>
                           </div>
                         </div>
 
-                        <p className="text-xs text-[#1C1715]/80 font-normal leading-relaxed">
+                        <p className="text-xs text-[#E4E8E5]/80 font-normal leading-relaxed">
                           "{r.review}"
                         </p>
                       </div>
@@ -432,13 +416,13 @@ export default function FoodDetailsModal({
           </div>
 
           {/* Sticky Bottom Footer: Quantity, Total & Add to Cart */}
-          <div className="p-4 sm:p-5 bg-[#F7F2EB] border-t border-[#1C1715]/10 flex items-center justify-between gap-4">
+          <div className="p-4 sm:p-5 bg-[#252B28] border-t border-[#E4E8E5]/10 flex items-center justify-between gap-4">
             {/* Quantity Stepper */}
-            <div className="flex items-center gap-2 bg-white rounded-2xl p-1.5 border border-[#1C1715]/10 shadow-sm">
+            <div className="flex items-center gap-2 bg-[#252B28] rounded-2xl p-1.5 border border-[#E4E8E5]/10 shadow-sm">
               <button
                 type="button"
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                className="w-8 h-8 rounded-xl bg-[#F7F2EB] hover:bg-[#E4572E] hover:text-white flex items-center justify-center font-bold text-sm transition-colors"
+                className="w-8 h-8 rounded-xl bg-[#252B28] hover:bg-[#718C56] hover:text-white flex items-center justify-center font-bold text-sm transition-colors"
                 aria-label="Decrease quantity"
               >
                 <IconMinus className="w-3.5 h-3.5" />
@@ -449,7 +433,7 @@ export default function FoodDetailsModal({
               <button
                 type="button"
                 onClick={() => setQuantity((q) => q + 1)}
-                className="w-8 h-8 rounded-xl bg-[#F7F2EB] hover:bg-[#2E8B57] hover:text-white flex items-center justify-center font-bold text-sm transition-colors"
+                className="w-8 h-8 rounded-xl bg-[#252B28] hover:bg-[#718C56] hover:text-white flex items-center justify-center font-bold text-sm transition-colors"
                 aria-label="Increase quantity"
               >
                 <IconPlus className="w-3.5 h-3.5" />
@@ -459,10 +443,8 @@ export default function FoodDetailsModal({
             {/* Total and Add Button */}
             <div className="flex-1 flex items-center justify-end gap-3 sm:gap-4">
               <div className="text-right">
-                <span className="text-[10px] text-[#665C54] uppercase font-bold block">
-                  Total
-                </span>
-                <span className="font-display font-extrabold text-lg sm:text-xl text-[#E4572E]">
+                <span className="text-[10px] text-[#AFB8B0] uppercase font-bold block">Total</span>
+                <span className="font-display font-extrabold text-lg sm:text-xl text-[#718C56]">
                   Rs. {totalPrice.toLocaleString()}
                 </span>
               </div>
@@ -470,14 +452,13 @@ export default function FoodDetailsModal({
               <button
                 type="button"
                 onClick={handleAddToCart}
-                className="bg-[#E4572E] hover:bg-[#D1451C] text-white font-extrabold text-xs sm:text-sm px-5 sm:px-6 py-3 rounded-2xl shadow-lg shadow-[#E4572E]/30 active:scale-95 transition-all flex items-center gap-2"
+                className="bg-[#718C56] hover:bg-[#607A46] text-white font-extrabold text-xs sm:text-sm px-5 sm:px-6 py-3 rounded-2xl shadow-lg shadow-[#718C56]/30 active:scale-95 transition-all flex items-center gap-2"
               >
                 <IconCart className="w-4 h-4" />
                 <span>Add to Order</span>
               </button>
             </div>
           </div>
-
         </div>
       </div>
     </div>

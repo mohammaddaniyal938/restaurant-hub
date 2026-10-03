@@ -27,8 +27,8 @@ const normalizeProduct = (item) => {
     ingredients: Array.isArray(item.ingredients)
       ? item.ingredients
       : typeof item.ingredients === "string"
-      ? item.ingredients.split(",").map((s) => s.trim())
-      : [],
+        ? item.ingredients.split(",").map((s) => s.trim())
+        : [],
     addons: Array.isArray(item.addons) ? item.addons : [],
     inStock: item.in_stock !== false && item.inStock !== false,
   };
@@ -87,10 +87,7 @@ export const supabaseService = {
     // Try Supabase first
     try {
       if (supabase) {
-        const { data, error } = await supabase
-          .from("products")
-          .insert([formatted])
-          .select();
+        const { data, error } = await supabase.from("products").insert([formatted]).select();
 
         if (!error && data && data[0]) {
           return normalizeProduct(data[0]);
@@ -124,7 +121,7 @@ export const supabaseService = {
 
     // Clean undefined
     Object.keys(formattedUpdates).forEach(
-      (key) => formattedUpdates[key] === undefined && delete formattedUpdates[key]
+      (key) => formattedUpdates[key] === undefined && delete formattedUpdates[key],
     );
 
     try {
@@ -146,9 +143,7 @@ export const supabaseService = {
     // LocalStorage fallback
     try {
       const current = await this.getProducts();
-      const updated = current.map((p) =>
-        String(p.id) === String(id) ? { ...p, ...updates } : p
-      );
+      const updated = current.map((p) => (String(p.id) === String(id) ? { ...p, ...updates } : p));
       localStorage.setItem(LOCAL_STORAGE_KEYS.PRODUCTS, JSON.stringify(updated));
       return updated.find((p) => String(p.id) === String(id));
     } catch (e) {
@@ -239,12 +234,13 @@ export const supabaseService = {
             paymentMethod: o.payment_method || o.paymentMethod,
             status: o.status || "pending",
             items: o.items || [],
-            billSummary: o.bill_summary || o.billSummary || {
-              subtotal: o.subtotal || 0,
-              deliveryFee: o.delivery_fee || 0,
-              discountAmount: o.discount || 0,
-              grandTotal: o.grand_total || 0,
-            },
+            billSummary: o.bill_summary ||
+              o.billSummary || {
+                subtotal: o.subtotal || 0,
+                deliveryFee: o.delivery_fee || 0,
+                discountAmount: o.discount || 0,
+                grandTotal: o.grand_total || 0,
+              },
             createdAt: o.created_at || o.createdAt,
           }));
         }
@@ -327,10 +323,7 @@ export const supabaseService = {
   async updateOrderStatus(orderId, newStatus) {
     try {
       if (supabase) {
-        await supabase
-          .from("orders")
-          .update({ status: newStatus })
-          .eq("order_id", orderId);
+        await supabase.from("orders").update({ status: newStatus }).eq("order_id", orderId);
       }
     } catch (err) {
       console.warn("Supabase update order status error:", err);
@@ -339,9 +332,7 @@ export const supabaseService = {
     try {
       const orders = await this.getOrders();
       const updated = orders.map((o) =>
-        o.orderId === orderId || o.order_id === orderId
-          ? { ...o, status: newStatus }
-          : o
+        o.orderId === orderId || o.order_id === orderId ? { ...o, status: newStatus } : o,
       );
       localStorage.setItem(LOCAL_STORAGE_KEYS.ORDERS, JSON.stringify(updated));
       return true;
@@ -366,13 +357,9 @@ export const supabaseService = {
     try {
       const channel = supabase
         .channel("public:orders")
-        .on(
-          "postgres_changes",
-          { event: "*", schema: "public", table: "orders" },
-          (payload) => {
-            if (callback) callback(payload);
-          }
-        )
+        .on("postgres_changes", { event: "*", schema: "public", table: "orders" }, (payload) => {
+          if (callback) callback(payload);
+        })
         .subscribe();
 
       return () => {

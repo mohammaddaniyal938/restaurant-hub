@@ -3,7 +3,8 @@ export const products = [
     id: 1,
     image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=80",
     title: "Classic Karachi Beef Burger",
-    description: "Charcoal grilled 100% prime beef patty layered with melted cheddar, crisp lettuce, caramelized onions, dill pickles, and our signature spicy Karachi mayo in a butter-toasted brioche bun.",
+    description:
+      "Charcoal grilled 100% prime beef patty layered with melted cheddar, crisp lettuce, caramelized onions, dill pickles, and our signature spicy Karachi mayo in a butter-toasted brioche bun.",
     price: 799,
     category: "Burgers",
     rating: 4.9,
@@ -13,7 +14,13 @@ export const products = [
     isVeg: false,
     prepTime: "15-20 min",
     calories: "680 kcal",
-    ingredients: ["Prime Beef Patty", "Cheddar Cheese", "Caramelized Onions", "Secret Sauce", "Brioche Bun"],
+    ingredients: [
+      "Prime Beef Patty",
+      "Cheddar Cheese",
+      "Caramelized Onions",
+      "Secret Sauce",
+      "Brioche Bun",
+    ],
     addons: [
       { id: "a1", name: "Extra Cheddar Slice", price: 120 },
       { id: "a2", name: "Double Patty Upgrade", price: 350 },
@@ -24,7 +31,8 @@ export const products = [
     id: 2,
     image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&q=80",
     title: "Fiery Zinger Crunch Burger",
-    description: "Golden crispy fried chicken breast fillet drenched in hot zesty spice blend, shredded iceberg lettuce, and thick garlic mayo on a warm sesame seed bun.",
+    description:
+      "Golden crispy fried chicken breast fillet drenched in hot zesty spice blend, shredded iceberg lettuce, and thick garlic mayo on a warm sesame seed bun.",
     price: 699,
     category: "Burgers",
     rating: 4.8,
@@ -45,7 +53,8 @@ export const products = [
     id: 3,
     image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&q=80",
     title: "Double BBQ Smash Burger",
-    description: "Two smashed beef patties with crispy lace edges, double sharp cheddar, smoked brisket bacon bits, and smoky Texas BBQ glaze.",
+    description:
+      "Two smashed beef patties with crispy lace edges, double sharp cheddar, smoked brisket bacon bits, and smoky Texas BBQ glaze.",
     price: 949,
     category: "Burgers",
     rating: 4.9,
@@ -65,7 +74,8 @@ export const products = [
     id: 4,
     image: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=800&q=80",
     title: "Authentic Arabic Chicken Shawarma",
-    description: "Slow-roasted marinated chicken shaved straight off the spit, wrapped in fluffy pita with authentic Lebanese toum garlic sauce, crunchy pickled cucumbers, and fries inside.",
+    description:
+      "Slow-roasted marinated chicken shaved straight off the spit, wrapped in fluffy pita with authentic Lebanese toum garlic sauce, crunchy pickled cucumbers, and fries inside.",
     price: 549,
     category: "Shawarma",
     rating: 4.8,
@@ -86,7 +96,8 @@ export const products = [
     id: 5,
     image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80",
     title: "Spicy Karachi Beef Shawarma",
-    description: "Juicy charred beef boti strips with tangy tahini sauce, pickled onions, chopped green chilies, and fresh parsley wrapped in grilled Saj bread.",
+    description:
+      "Juicy charred beef boti strips with tangy tahini sauce, pickled onions, chopped green chilies, and fresh parsley wrapped in grilled Saj bread.",
     price: 649,
     category: "Shawarma",
     rating: 4.7,
@@ -106,7 +117,8 @@ export const products = [
     id: 6,
     image: "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=800&q=80",
     title: "Chicken Fajita Sensation Pizza",
-    description: "Hand-stretched artisan dough topped with rich herb marinara, 100% whole-milk mozzarella, spiced fajita chicken chunks, bell peppers, onions, and black olives.",
+    description:
+      "Hand-stretched artisan dough topped with rich herb marinara, 100% whole-milk mozzarella, spiced fajita chicken chunks, bell peppers, onions, and black olives.",
     price: 1399,
     category: "Pizza",
     rating: 4.9,
@@ -127,7 +139,8 @@ export const products = [
     id: 7,
     image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80",
     title: "Smoky Pepperoni Overload Pizza",
-    description: "Crispy crust topped with zesty Italian tomato base, generous layers of premium beef pepperoni slices, strings of melted mozzarella, and fresh oregano.",
+    description:
+      "Crispy crust topped with zesty Italian tomato base, generous layers of premium beef pepperoni slices, strings of melted mozzarella, and fresh oregano.",
     price: 1499,
     category: "Pizza",
     rating: 4.8,
@@ -147,7 +160,8 @@ export const products = [
     id: 8,
     image: "https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=800&q=80",
     title: "Artisanal Margherita Supreme",
-    description: "Authentic Neapolitan style crust, San Marzano tomato puree, buffalo mozzarella rounds, fresh sweet basil leaves, and a drizzle of extra virgin olive oil.",
+    description:
+      "Authentic Neapolitan style crust, San Marzano tomato puree, buffalo mozzarella rounds, fresh sweet basil leaves, and a drizzle of extra virgin olive oil.",
     price: 1199,
     category: "Pizza",
     rating: 4.6,
@@ -167,7 +181,8 @@ export const products = [
     id: 9,
     image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=800&q=80",
     title: "Portobello Mushroom Swiss Burger",
-    description: "Juicy grilled beef patty or vegetarian crispy patty topped with sautéed buttery mushrooms, melted aged Swiss cheese, and truffle garlic aioli.",
+    description:
+      "Juicy grilled beef patty or vegetarian crispy patty topped with sautéed buttery mushrooms, melted aged Swiss cheese, and truffle garlic aioli.",
     price: 899,
     category: "Burgers",
     rating: 4.7,
@@ -187,7 +202,8 @@ export const products = [
     id: 10,
     image: "https://images.unsplash.com/photo-1576107232684-1279f3908594?w=800&q=80",
     title: "Karachi Dynamite Loaded Fries",
-    description: "Crispy golden potato fries smothered in warm cheese sauce, spicy dynamite chicken cubes, jalapeño rings, and scallions with a kick of peri-peri seasoning.",
+    description:
+      "Crispy golden potato fries smothered in warm cheese sauce, spicy dynamite chicken cubes, jalapeño rings, and scallions with a kick of peri-peri seasoning.",
     price: 599,
     category: "Sides",
     rating: 4.9,
@@ -207,7 +223,8 @@ export const products = [
     id: 11,
     image: "https://images.unsplash.com/photo-1527477378408-1bc0b9856f67?w=800&q=80",
     title: "Crispy Peri-Peri Wings (6 Pcs)",
-    description: "Succulent jumbo chicken wings tossed in your choice of zesty African Bird's Eye Peri-Peri glaze or smoky BBQ honey dip, served with ranch sauce.",
+    description:
+      "Succulent jumbo chicken wings tossed in your choice of zesty African Bird's Eye Peri-Peri glaze or smoky BBQ honey dip, served with ranch sauce.",
     price: 549,
     category: "Sides",
     rating: 4.8,
@@ -227,7 +244,8 @@ export const products = [
     id: 12,
     image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800&q=80",
     title: "Belgian Chocolate Fudge Shake",
-    description: "Thick, creamy premium dairy shake blended with rich Belgian dark cocoa, fudge syrup, topped with whipped cream and chocolate shavings.",
+    description:
+      "Thick, creamy premium dairy shake blended with rich Belgian dark cocoa, fudge syrup, topped with whipped cream and chocolate shavings.",
     price: 449,
     category: "Drinks",
     rating: 4.9,
@@ -247,7 +265,8 @@ export const products = [
     id: 13,
     image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&q=80",
     title: "Lotus Biscoff Dream Shake",
-    description: "Indulgent milkshake infused with authentic Lotus Biscoff spread, crushed caramelised biscuits, and topped with silky Biscoff drizzle.",
+    description:
+      "Indulgent milkshake infused with authentic Lotus Biscoff spread, crushed caramelised biscuits, and topped with silky Biscoff drizzle.",
     price: 499,
     category: "Drinks",
     rating: 5.0,
@@ -258,15 +277,14 @@ export const products = [
     prepTime: "5-8 min",
     calories: "520 kcal",
     ingredients: ["Lotus Biscoff Spread", "Caramel Biscuits", "Creamy Vanilla Shake"],
-    addons: [
-      { id: "a19", name: "Extra Whipped Cream", price: 50 },
-    ],
+    addons: [{ id: "a19", name: "Extra Whipped Cream", price: 50 }],
   },
   {
     id: 14,
     image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80",
     title: "Karachi Midnight Due Feast",
-    description: "Combo Deal: 2x Classic Burgers (Beef or Crispy Zinger), 1x Large Dynamite Loaded Fries, and 2x Chilled Beverages. Perfect for sharing!",
+    description:
+      "Combo Deal: 2x Classic Burgers (Beef or Crispy Zinger), 1x Large Dynamite Loaded Fries, and 2x Chilled Beverages. Perfect for sharing!",
     price: 1899,
     category: "Deals",
     rating: 4.9,
@@ -286,7 +304,8 @@ export const products = [
     id: 15,
     image: "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=800&q=80",
     title: "Crispy Peri Crinkle Fries",
-    description: "Golden crinkle-cut fries dusted with our signature spicy Karachi peri masala blend, served with garlic mayo dip.",
+    description:
+      "Golden crinkle-cut fries dusted with our signature spicy Karachi peri masala blend, served with garlic mayo dip.",
     price: 299,
     category: "Sides",
     rating: 4.6,
@@ -297,15 +316,14 @@ export const products = [
     prepTime: "8-10 min",
     calories: "340 kcal",
     ingredients: ["Crinkle Cut Potatoes", "Peri Masala", "Garlic Mayo Dip"],
-    addons: [
-      { id: "a15", name: "Add Cheese Dip", price: 90 },
-    ],
+    addons: [{ id: "a15", name: "Add Cheese Dip", price: 90 }],
   },
   {
     id: 16,
     image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80",
     title: "Karachi Mega Family Party Box",
-    description: "Mega Deal: 1x Large Chicken Fajita Pizza, 2x Zinger Burgers, 2x Arabic Shawarmas, 1x Jumbo Loaded Fries, and 1x 1.5L Chilled Drink.",
+    description:
+      "Mega Deal: 1x Large Chicken Fajita Pizza, 2x Zinger Burgers, 2x Arabic Shawarmas, 1x Jumbo Loaded Fries, and 1x 1.5L Chilled Drink.",
     price: 3499,
     category: "Deals",
     rating: 5.0,
@@ -315,9 +333,13 @@ export const products = [
     isVeg: false,
     prepTime: "25-30 min",
     calories: "3200 kcal",
-    ingredients: ["1 Large Pizza", "2 Zinger Burgers", "2 Shawarmas", "1 Jumbo Fries", "1.5L Beverage"],
-    addons: [
-      { id: "a10", name: "Stuffed Crust Upgrade for Pizza", price: 250 },
+    ingredients: [
+      "1 Large Pizza",
+      "2 Zinger Burgers",
+      "2 Shawarmas",
+      "1 Jumbo Fries",
+      "1.5L Beverage",
     ],
+    addons: [{ id: "a10", name: "Stuffed Crust Upgrade for Pizza", price: 250 }],
   },
 ];

@@ -32,8 +32,10 @@ export const claimRestaurantAdmin = createServerFn({ method: "POST" })
 /** Admin-only: grant or revoke a staff/admin role for another user by email. */
 export const setUserRole = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { email: string; role: "admin" | "staff" | "customer"; revoke?: boolean }) => {
-    const email = String(input?.email ?? "").trim().toLowerCase();
+  .validator((input: { email: string; role: "admin" | "staff" | "customer"; revoke?: boolean }) => {
+    const email = String(input?.email ?? "")
+      .trim()
+      .toLowerCase();
     if (!email || email.length > 255 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       throw new Error("A valid email address is required.");
     }

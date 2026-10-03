@@ -4,11 +4,25 @@ import { useEffect, useState } from "react";
 import { AuthProvider, useAuth } from "@/lib/auth-context.jsx";
 
 type AuthSearch = { redirect?: string | undefined };
+type AuthError = { message: string } | null;
+type AuthState = {
+  loading: boolean;
+  user: { id: string } | null;
+  resetPassword: (email: string) => Promise<{ error: AuthError }>;
+  signUpWithPassword: (
+    email: string,
+    password: string,
+    fullName: string,
+    phone: string,
+  ) => Promise<{ error: AuthError; needsConfirmation: boolean }>;
+  signInWithPassword: (email: string, password: string) => Promise<{ error: AuthError }>;
+  signInWithGoogle: () => Promise<{ error: AuthError; redirected: boolean }>;
+};
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
   validateSearch: (search: Record<string, unknown>): AuthSearch => ({
-    redirect: typeof search['redirect'] === "string" ? (search['redirect'] as string) : undefined,
+    redirect: typeof search["redirect"] === "string" ? (search["redirect"] as string) : undefined,
   }),
   head: () => ({
     meta: [
@@ -21,7 +35,8 @@ export const Route = createFileRoute("/auth")({
       { property: "og:title", content: "Sign in — KarachiBites" },
       {
         property: "og:description",
-        content: "Create a KarachiBites account to save favourites, track orders and check out faster.",
+        content:
+          "Create a KarachiBites account to save favourites, track orders and check out faster.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -37,7 +52,7 @@ export const Route = createFileRoute("/auth")({
 function AuthPage() {
   const navigate = useNavigate();
   const search = useSearch({ from: "/auth" }) as AuthSearch;
-  const auth = useAuth() as any;
+  const auth = useAuth() as AuthState;
 
   const [mode, setMode] = useState<"signin" | "signup" | "forgot">("signin");
   const [email, setEmail] = useState("");
@@ -76,7 +91,10 @@ function AuthPage() {
 
     if (!email.trim() || password.length < 6) {
       setBusy(false);
-      setMessage({ kind: "error", text: "Enter a valid email and a password of at least 6 characters." });
+      setMessage({
+        kind: "error",
+        text: "Enter a valid email and a password of at least 6 characters.",
+      });
       return;
     }
 
@@ -119,7 +137,9 @@ function AuthPage() {
   return (
     <div className="min-h-screen bg-cream-subtle flex flex-col items-center justify-center px-4 py-10">
       <Link to="/" className="flex items-center gap-2 mb-6">
-        <span className="w-11 h-11 rounded-2xl bg-chili flex items-center justify-center text-2xl shadow-lg">🍔</span>
+        <span className="w-11 h-11 rounded-2xl bg-chili flex items-center justify-center text-2xl shadow-lg">
+          🍔
+        </span>
         <span className="font-display font-extrabold text-2xl tracking-tight text-ink">
           Karachi<span className="text-chili">Bites</span>
         </span>
@@ -140,9 +160,7 @@ function AuthPage() {
         {message && (
           <div
             className={`mt-4 rounded-xl px-3 py-2 text-sm font-medium ${
-              message.kind === "error"
-                ? "bg-chili-light text-chili"
-                : "bg-basil-light text-basil"
+              message.kind === "error" ? "bg-chili-light text-chili" : "bg-basil-light text-basil"
             }`}
           >
             {message.text}
@@ -153,14 +171,14 @@ function AuthPage() {
           {mode === "signup" && (
             <>
               <input
-                className="w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-chili"
+                className="w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#718C56]"
                 placeholder="Full name"
                 value={fullName}
                 maxLength={80}
                 onChange={(e) => setFullName(e.target.value)}
               />
               <input
-                className="w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-chili"
+                className="w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#718C56]"
                 placeholder="Phone (03xx xxxxxxx)"
                 value={phone}
                 maxLength={20}
@@ -173,7 +191,7 @@ function AuthPage() {
             type="email"
             required
             autoComplete="email"
-            className="w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-chili"
+            className="w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#718C56]"
             placeholder="Email address"
             value={email}
             maxLength={255}
@@ -185,7 +203,7 @@ function AuthPage() {
               type="password"
               required
               autoComplete={mode === "signup" ? "new-password" : "current-password"}
-              className="w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-chili"
+              className="w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#718C56]"
               placeholder="Password"
               value={password}
               maxLength={72}
@@ -212,7 +230,9 @@ function AuthPage() {
           <>
             <div className="flex items-center gap-3 my-5">
               <span className="h-px flex-1 bg-cream-dark" />
-              <span className="text-[11px] uppercase tracking-wider font-bold text-ink-light">or</span>
+              <span className="text-[11px] uppercase tracking-wider font-bold text-ink-light">
+                or
+              </span>
               <span className="h-px flex-1 bg-cream-dark" />
             </div>
 
@@ -230,7 +250,11 @@ function AuthPage() {
         <div className="mt-6 space-y-2 text-center text-xs text-ink-muted">
           {mode === "signin" && (
             <>
-              <button type="button" className="font-bold text-chili" onClick={() => setMode("signup")}>
+              <button
+                type="button"
+                className="font-bold text-chili"
+                onClick={() => setMode("signup")}
+              >
                 New here? Create an account
               </button>
               <div>
@@ -241,7 +265,11 @@ function AuthPage() {
             </>
           )}
           {mode !== "signin" && (
-            <button type="button" className="font-bold text-chili" onClick={() => setMode("signin")}>
+            <button
+              type="button"
+              className="font-bold text-chili"
+              onClick={() => setMode("signin")}
+            >
               Back to sign in
             </button>
           )}

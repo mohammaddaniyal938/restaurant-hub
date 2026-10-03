@@ -39,7 +39,14 @@ export const Route = createFileRoute("/api/public/orders/$orderId")({
           return json({ error: "Invalid JSON body" }, 400);
         }
 
-        const allowed = ["pending", "confirmed", "preparing", "on_the_way", "delivered", "cancelled"];
+        const allowed = [
+          "pending",
+          "confirmed",
+          "preparing",
+          "on_the_way",
+          "delivered",
+          "cancelled",
+        ];
         const status = String(body.status ?? "");
         if (!allowed.includes(status)) {
           return json({ error: `status must be one of: ${allowed.join(", ")}` }, 400);

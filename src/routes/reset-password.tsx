@@ -9,7 +9,10 @@ export const Route = createFileRoute("/reset-password")({
       { title: "Set a new password — KarachiBites" },
       { name: "description", content: "Choose a new password for your KarachiBites account." },
       { property: "og:title", content: "Set a new password — KarachiBites" },
-      { property: "og:description", content: "Choose a new password for your KarachiBites account." },
+      {
+        property: "og:description",
+        content: "Choose a new password for your KarachiBites account.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -52,7 +55,7 @@ function ResetPassword() {
         </p>
 
         {message && (
-          <div className="mt-4 rounded-xl bg-turmeric-light text-ink text-sm font-medium px-3 py-2">
+          <div className="mt-4 rounded-xl bg-[#303A2B] text-ink text-sm font-medium px-3 py-2">
             {message}
           </div>
         )}
@@ -61,7 +64,7 @@ function ResetPassword() {
           type="password"
           required
           autoComplete="new-password"
-          className="mt-5 w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-chili"
+          className="mt-5 w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#718C56]"
           placeholder="New password"
           value={password}
           maxLength={72}

@@ -1,24 +1,51 @@
 import { useState } from "react";
-import {
-  IconSearch,
-  IconPlus,
-  IconTrash,
-  IconX,
-  IconStar,
-} from "../Icons";
+import { IconSearch, IconPlus, IconTrash, IconX, IconStar } from "../Icons";
 
 const PRESET_FOOD_IMAGES = [
-  { label: "Classic Burger", url: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=80" },
-  { label: "Zinger Crunch", url: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&q=80" },
-  { label: "BBQ Smash", url: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&q=80" },
-  { label: "Shawarma Wrap", url: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=800&q=80" },
-  { label: "Fajita Pizza", url: "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=800&q=80" },
-  { label: "Pepperoni Pizza", url: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80" },
-  { label: "Loaded Fries", url: "https://images.unsplash.com/photo-1576107232684-1279f3908594?w=800&q=80" },
-  { label: "Peri Wings", url: "https://images.unsplash.com/photo-1527477378408-1bc0b9856f67?w=800&q=80" },
-  { label: "Choc Shake", url: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800&q=80" },
-  { label: "Lotus Shake", url: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&q=80" },
-  { label: "Mega Deal Box", url: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80" },
+  {
+    label: "Classic Burger",
+    url: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=80",
+  },
+  {
+    label: "Zinger Crunch",
+    url: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&q=80",
+  },
+  {
+    label: "BBQ Smash",
+    url: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&q=80",
+  },
+  {
+    label: "Shawarma Wrap",
+    url: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=800&q=80",
+  },
+  {
+    label: "Fajita Pizza",
+    url: "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=800&q=80",
+  },
+  {
+    label: "Pepperoni Pizza",
+    url: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80",
+  },
+  {
+    label: "Loaded Fries",
+    url: "https://images.unsplash.com/photo-1576107232684-1279f3908594?w=800&q=80",
+  },
+  {
+    label: "Peri Wings",
+    url: "https://images.unsplash.com/photo-1527477378408-1bc0b9856f67?w=800&q=80",
+  },
+  {
+    label: "Choc Shake",
+    url: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800&q=80",
+  },
+  {
+    label: "Lotus Shake",
+    url: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&q=80",
+  },
+  {
+    label: "Mega Deal Box",
+    url: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80",
+  },
 ];
 
 export default function DashboardMenu({
@@ -133,21 +160,19 @@ export default function DashboardMenu({
     const updated = !product.inStock;
     onUpdateProduct(product.id, { inStock: updated });
     if (onShowToast) {
-      onShowToast(
-        `"${product.title}" is now ${updated ? "In Stock ✓" : "Out of Stock ✕"}`
-      );
+      onShowToast(`"${product.title}" is now ${updated ? "In Stock ✓" : "Out of Stock ✕"}`);
     }
   };
 
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Top Header & Actions */}
-      <div className="bg-white p-5 rounded-3xl border border-[#1C1715]/10 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+      <div className="bg-[#252B28] p-5 rounded-3xl border border-[#E4E8E5]/10 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
         <div>
-          <h2 className="font-display font-extrabold text-xl text-[#1C1715]">
+          <h2 className="font-display font-extrabold text-xl text-[#E4E8E5]">
             Menu Dishes & Pricing Catalog
           </h2>
-          <p className="text-xs text-[#665C54]">
+          <p className="text-xs text-[#AFB8B0]">
             {filteredProducts.length} dishes displayed • Add, edit, or adjust pricing & stock
           </p>
         </div>
@@ -155,7 +180,7 @@ export default function DashboardMenu({
         <div className="flex items-center gap-3">
           {/* Search */}
           <div className="relative flex-1 md:w-64">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#665C54]">
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#AFB8B0]">
               <IconSearch className="w-4 h-4" />
             </span>
             <input
@@ -163,13 +188,13 @@ export default function DashboardMenu({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search dishes..."
-              className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#F7F2EB]/70 border border-[#1C1715]/10 text-xs font-medium focus:outline-none focus:border-[#E4572E]"
+              className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#252B28]/70 border border-[#E4E8E5]/10 text-xs font-medium focus:outline-none focus:border-[#718C56]"
             />
           </div>
 
           <button
             onClick={handleOpenAdd}
-            className="bg-[#E4572E] hover:bg-[#D1451C] text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-lg shadow-[#E4572E]/30 flex items-center gap-1.5 shrink-0 transition-all active:scale-95"
+            className="bg-[#718C56] hover:bg-[#607A46] text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-lg shadow-[#718C56]/30 flex items-center gap-1.5 shrink-0 transition-all active:scale-95"
           >
             <IconPlus className="w-4 h-4" />
             <span>Add Dish</span>
@@ -185,8 +210,8 @@ export default function DashboardMenu({
             onClick={() => setCategoryFilter(cat)}
             className={`shrink-0 px-4 py-2 rounded-2xl text-xs font-bold transition-all ${
               categoryFilter === cat
-                ? "bg-[#161311] text-white shadow"
-                : "bg-white text-[#1C1715]/70 hover:bg-[#F7F2EB] border border-[#1C1715]/10"
+                ? "bg-[#171B19] text-white shadow"
+                : "bg-[#252B28] text-[#E4E8E5]/70 hover:bg-[#252B28] border border-[#E4E8E5]/10"
             }`}
           >
             {cat}
@@ -195,10 +220,10 @@ export default function DashboardMenu({
       </div>
 
       {/* Products Catalog Table */}
-      <div className="bg-white rounded-3xl border border-[#1C1715]/10 overflow-hidden shadow-sm">
+      <div className="bg-[#252B28] rounded-3xl border border-[#E4E8E5]/10 overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#F7F2EB]/60 border-b border-[#1C1715]/10 text-[#665C54] uppercase text-[10px] font-extrabold">
+            <thead className="bg-[#252B28]/60 border-b border-[#E4E8E5]/10 text-[#AFB8B0] uppercase text-[10px] font-extrabold">
               <tr>
                 <th className="py-3.5 px-4">Dish Info</th>
                 <th className="py-3.5 px-4">Category</th>
@@ -208,32 +233,30 @@ export default function DashboardMenu({
                 <th className="py-3.5 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#1C1715]/5">
+            <tbody className="divide-y divide-[#E4E8E5]/5">
               {filteredProducts.map((product) => (
-                <tr key={product.id} className="hover:bg-[#FFFDF9] transition-colors">
+                <tr key={product.id} className="hover:bg-[#171B19] transition-colors">
                   {/* Dish Info */}
                   <td className="py-3.5 px-4">
                     <div className="flex items-center gap-3">
                       <img
                         src={product.image}
                         alt={product.title}
-                        className="w-12 h-12 object-cover rounded-xl shrink-0 bg-[#F7F2EB]"
+                        className="w-12 h-12 object-cover rounded-xl shrink-0 bg-[#252B28]"
                       />
                       <div>
                         <div className="flex items-center gap-1.5">
-                          <p className="font-bold text-[#1C1715] text-xs sm:text-sm">
+                          <p className="font-bold text-[#E4E8E5] text-xs sm:text-sm">
                             {product.title}
                           </p>
-                          {product.isSpicy && (
-                            <span title="Spicy">🌶️</span>
-                          )}
+                          {product.isSpicy && <span title="Spicy">🌶️</span>}
                           {product.badge && (
-                            <span className="bg-[#FFF1EC] text-[#E4572E] text-[9px] font-extrabold px-1.5 py-0.5 rounded">
+                            <span className="bg-[#303A2B] text-[#718C56] text-[9px] font-extrabold px-1.5 py-0.5 rounded">
                               {product.badge}
                             </span>
                           )}
                         </div>
-                        <p className="text-[10px] text-[#665C54] line-clamp-1 max-w-xs">
+                        <p className="text-[10px] text-[#AFB8B0] line-clamp-1 max-w-xs">
                           {product.description}
                         </p>
                       </div>
@@ -242,22 +265,22 @@ export default function DashboardMenu({
 
                   {/* Category */}
                   <td className="py-3.5 px-4">
-                    <span className="bg-[#F7F2EB] text-[#1C1715] px-2.5 py-1 rounded-lg text-[11px] font-semibold">
+                    <span className="bg-[#252B28] text-[#E4E8E5] px-2.5 py-1 rounded-lg text-[11px] font-semibold">
                       {product.category}
                     </span>
                   </td>
 
                   {/* Price */}
                   <td className="py-3.5 px-4">
-                    <span className="font-display font-extrabold text-sm text-[#E4572E]">
+                    <span className="font-display font-extrabold text-sm text-[#718C56]">
                       Rs. {product.price.toLocaleString()}
                     </span>
                   </td>
 
                   {/* Rating */}
                   <td className="py-3.5 px-4">
-                    <div className="flex items-center gap-1 font-bold text-[#1C1715]">
-                      <IconStar className="w-3.5 h-3.5 text-[#F5A623] fill-[#F5A623]" />
+                    <div className="flex items-center gap-1 font-bold text-[#E4E8E5]">
+                      <IconStar className="w-3.5 h-3.5 text-[#C5E879] fill-[#C5E879]" />
                       <span>{product.rating}</span>
                     </div>
                   </td>
@@ -281,7 +304,7 @@ export default function DashboardMenu({
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => handleOpenEdit(product)}
-                        className="bg-[#F7F2EB] hover:bg-[#161311] hover:text-white text-[#1C1715] px-3 py-1.5 rounded-xl font-bold text-xs transition-colors"
+                        className="bg-[#252B28] hover:bg-[#171B19] hover:text-white text-[#E4E8E5] px-3 py-1.5 rounded-xl font-bold text-xs transition-colors"
                       >
                         Edit
                       </button>
@@ -312,11 +335,11 @@ export default function DashboardMenu({
           }}
         >
           <div
-            className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden animate-pop-in max-h-[92vh] flex flex-col"
+            className="relative w-full max-w-2xl bg-[#252B28] rounded-3xl shadow-2xl overflow-hidden animate-pop-in max-h-[92vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="bg-[#161311] text-white p-6 flex items-center justify-between">
+            <div className="bg-[#171B19] text-white p-6 flex items-center justify-between">
               <h3 className="font-display font-extrabold text-xl text-white">
                 {editingProduct ? `Edit "${editingProduct.title}"` : "Add New Dish to Menu"}
               </h3>
@@ -333,96 +356,103 @@ export default function DashboardMenu({
             </div>
 
             {/* Modal Form */}
-            <form onSubmit={handleSaveProduct} className="p-6 overflow-y-auto scroll-thin flex-1 space-y-4 text-xs">
+            <form
+              onSubmit={handleSaveProduct}
+              className="p-6 overflow-y-auto scroll-thin flex-1 space-y-4 text-xs"
+            >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-bold text-[#1C1715] mb-1">Dish Name *</label>
+                  <label className="block font-bold text-[#E4E8E5] mb-1">Dish Name *</label>
                   <input
                     type="text"
                     required
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     placeholder="e.g. Smoky Truffle Beef Burger"
-                    className="w-full p-2.5 rounded-xl bg-[#F7F2EB]/70 border border-[#1C1715]/10 text-xs focus:bg-white focus:outline-none"
+                    className="w-full p-2.5 rounded-xl bg-[#252B28]/70 border border-[#E4E8E5]/10 text-xs focus:bg-[#252B28] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#1C1715] mb-1">Category *</label>
+                  <label className="block font-bold text-[#E4E8E5] mb-1">Category *</label>
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full p-2.5 rounded-xl bg-[#F7F2EB]/70 border border-[#1C1715]/10 text-xs focus:bg-white focus:outline-none"
+                    className="w-full p-2.5 rounded-xl bg-[#252B28]/70 border border-[#E4E8E5]/10 text-xs focus:bg-[#252B28] focus:outline-none"
                   >
-                    {categories.filter((c) => c !== "All").map((cat) => (
-                      <option key={cat} value={cat}>
-                        {cat}
-                      </option>
-                    ))}
+                    {categories
+                      .filter((c) => c !== "All")
+                      .map((cat) => (
+                        <option key={cat} value={cat}>
+                          {cat}
+                        </option>
+                      ))}
                   </select>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block font-bold text-[#1C1715] mb-1">Price (PKR) *</label>
+                  <label className="block font-bold text-[#E4E8E5] mb-1">Price (PKR) *</label>
                   <input
                     type="number"
                     required
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                     placeholder="e.g. 799"
-                    className="w-full p-2.5 rounded-xl bg-[#F7F2EB]/70 border border-[#1C1715]/10 text-xs focus:bg-white focus:outline-none"
+                    className="w-full p-2.5 rounded-xl bg-[#252B28]/70 border border-[#E4E8E5]/10 text-xs focus:bg-[#252B28] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#1C1715] mb-1">Badge Tag</label>
+                  <label className="block font-bold text-[#E4E8E5] mb-1">Badge Tag</label>
                   <input
                     type="text"
                     value={formData.badge}
                     onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
                     placeholder="e.g. Bestseller / 20% OFF"
-                    className="w-full p-2.5 rounded-xl bg-[#F7F2EB]/70 border border-[#1C1715]/10 text-xs focus:bg-white focus:outline-none"
+                    className="w-full p-2.5 rounded-xl bg-[#252B28]/70 border border-[#E4E8E5]/10 text-xs focus:bg-[#252B28] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#1C1715] mb-1">Prep Time</label>
+                  <label className="block font-bold text-[#E4E8E5] mb-1">Prep Time</label>
                   <input
                     type="text"
                     value={formData.prepTime}
                     onChange={(e) => setFormData({ ...formData, prepTime: e.target.value })}
                     placeholder="e.g. 15-20 min"
-                    className="w-full p-2.5 rounded-xl bg-[#F7F2EB]/70 border border-[#1C1715]/10 text-xs focus:bg-white focus:outline-none"
+                    className="w-full p-2.5 rounded-xl bg-[#252B28]/70 border border-[#E4E8E5]/10 text-xs focus:bg-[#252B28] focus:outline-none"
                   />
                 </div>
               </div>
 
               {/* Description */}
               <div>
-                <label className="block font-bold text-[#1C1715] mb-1">Mouth-watering Description</label>
+                <label className="block font-bold text-[#E4E8E5] mb-1">
+                  Mouth-watering Description
+                </label>
                 <textarea
                   rows={2}
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Describe ingredients, meat cut, crust, sauce flavors..."
-                  className="w-full p-2.5 rounded-xl bg-[#F7F2EB]/70 border border-[#1C1715]/10 text-xs focus:bg-white focus:outline-none resize-none"
+                  className="w-full p-2.5 rounded-xl bg-[#252B28]/70 border border-[#E4E8E5]/10 text-xs focus:bg-[#252B28] focus:outline-none resize-none"
                 />
               </div>
 
               {/* Image URL & Quick Presets */}
               <div>
-                <label className="block font-bold text-[#1C1715] mb-1">Food Image URL</label>
+                <label className="block font-bold text-[#E4E8E5] mb-1">Food Image URL</label>
                 <input
                   type="url"
                   value={formData.image}
                   onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                   placeholder="https://images.unsplash.com/..."
-                  className="w-full p-2.5 rounded-xl bg-[#F7F2EB]/70 border border-[#1C1715]/10 text-xs focus:bg-white focus:outline-none mb-2"
+                  className="w-full p-2.5 rounded-xl bg-[#252B28]/70 border border-[#E4E8E5]/10 text-xs focus:bg-[#252B28] focus:outline-none mb-2"
                 />
 
-                <p className="text-[10px] text-[#665C54] mb-1.5 font-semibold uppercase">
+                <p className="text-[10px] text-[#AFB8B0] mb-1.5 font-semibold uppercase">
                   Or pick a high-res food photo preset:
                 </p>
                 <div className="flex flex-wrap gap-1.5">
@@ -433,7 +463,7 @@ export default function DashboardMenu({
                       onClick={() => setFormData({ ...formData, image: preset.url })}
                       className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-colors ${
                         formData.image === preset.url
-                          ? "bg-[#E4572E] text-white border-[#E4572E]"
+                          ? "bg-[#718C56] text-white border-[#718C56]"
                           : "bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100"
                       }`}
                     >
@@ -444,15 +474,15 @@ export default function DashboardMenu({
               </div>
 
               {/* Dietary Toggles */}
-              <div className="flex gap-4 pt-2 border-t border-[#1C1715]/10">
+              <div className="flex gap-4 pt-2 border-t border-[#E4E8E5]/10">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={formData.isSpicy}
                     onChange={(e) => setFormData({ ...formData, isSpicy: e.target.checked })}
-                    className="w-4 h-4 text-[#E4572E] accent-[#E4572E]"
+                    className="w-4 h-4 text-[#718C56] accent-[#718C56]"
                   />
-                  <span className="font-bold text-[#1C1715]">🌶️ Spicy Flavor</span>
+                  <span className="font-bold text-[#E4E8E5]">🌶️ Spicy Flavor</span>
                 </label>
 
                 <label className="flex items-center gap-2 cursor-pointer">
@@ -460,9 +490,9 @@ export default function DashboardMenu({
                     type="checkbox"
                     checked={formData.isVeg}
                     onChange={(e) => setFormData({ ...formData, isVeg: e.target.checked })}
-                    className="w-4 h-4 text-[#E4572E] accent-[#E4572E]"
+                    className="w-4 h-4 text-[#718C56] accent-[#718C56]"
                   />
-                  <span className="font-bold text-[#1C1715]">🥬 Vegetarian Friendly</span>
+                  <span className="font-bold text-[#E4E8E5]">🥬 Vegetarian Friendly</span>
                 </label>
               </div>
 
@@ -474,13 +504,13 @@ export default function DashboardMenu({
                     setIsAddModalOpen(false);
                     setEditingProduct(null);
                   }}
-                  className="flex-1 py-3 border border-[#1C1715]/20 text-[#1C1715] font-bold rounded-xl hover:bg-[#F7F2EB]"
+                  className="flex-1 py-3 border border-[#E4E8E5]/20 text-[#E4E8E5] font-bold rounded-xl hover:bg-[#252B28]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-3 bg-[#E4572E] hover:bg-[#D1451C] text-white font-extrabold rounded-xl shadow-lg shadow-[#E4572E]/30"
+                  className="flex-1 py-3 bg-[#718C56] hover:bg-[#607A46] text-white font-extrabold rounded-xl shadow-lg shadow-[#718C56]/30"
                 >
                   {editingProduct ? "Save Changes" : "Publish to Menu"}
                 </button>

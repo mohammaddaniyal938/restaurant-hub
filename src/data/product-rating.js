@@ -6,7 +6,8 @@ const initialReviews = [
     avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&q=80",
     date: "2 days ago",
     rating: 5.0,
-    review: "Hands down the most flavorful beef burger in Karachi! The brioche bun was so fresh and soft, and the spicy mayo is unmatched.",
+    review:
+      "Hands down the most flavorful beef burger in Karachi! The brioche bun was so fresh and soft, and the spicy mayo is unmatched.",
     verified: true,
   },
   {
@@ -16,7 +17,8 @@ const initialReviews = [
     avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80",
     date: "1 week ago",
     rating: 4.8,
-    review: "Loved the char on the beef patty. Delivered hot within 25 minutes to Gulshan. Will definitely re-order!",
+    review:
+      "Loved the char on the beef patty. Delivered hot within 25 minutes to Gulshan. Will definitely re-order!",
     verified: true,
   },
   {
@@ -86,7 +88,8 @@ const initialReviews = [
     avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&q=80",
     date: "Just now",
     rating: 5.0,
-    review: "These loaded dynamite fries are addictive! Melted cheese and chicken bites everywhere.",
+    review:
+      "These loaded dynamite fries are addictive! Melted cheese and chicken bites everywhere.",
     verified: true,
   },
   {

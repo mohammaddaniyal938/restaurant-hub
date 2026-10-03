@@ -13,7 +13,10 @@ export const Route = createFileRoute("/api/public/menu")({
         const url = new URL(request.url);
         const category = url.searchParams.get("category");
         const search = url.searchParams.get("search");
-        const limit = Math.min(Math.max(Number(url.searchParams.get("limit") ?? 100) || 100, 1), 200);
+        const limit = Math.min(
+          Math.max(Number(url.searchParams.get("limit") ?? 100) || 100, 1),
+          200,
+        );
         const offset = Math.max(Number(url.searchParams.get("offset") ?? 0) || 0, 0);
 
         const supabase = createPublicClient();
@@ -25,7 +28,8 @@ export const Route = createFileRoute("/api/public/menu")({
           .range(offset, offset + limit - 1);
 
         if (category && category !== "All") query = query.eq("category", category);
-        if (search && search.trim()) query = query.ilike("title", `%${search.trim().slice(0, 80)}%`);
+        if (search && search.trim())
+          query = query.ilike("title", `%${search.trim().slice(0, 80)}%`);
 
         const { data, error } = await query;
         if (error) return json({ error: "Could not load the menu" }, 500);

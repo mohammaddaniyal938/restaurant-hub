@@ -10,12 +10,16 @@ export default function Toast({ message, type = "success", onClose }) {
       <div
         className={`flex items-center gap-3 px-4 py-3 rounded-2xl shadow-2xl border text-sm font-medium backdrop-blur-md ${
           isSuccess
-            ? "bg-[#161311]/95 text-white border-white/10 shadow-black/30"
-            : "bg-[#E4572E] text-white border-red-400/30"
+            ? "bg-[#171B19]/95 text-white border-white/10 shadow-black/30"
+            : "bg-[#718C56] text-white border-red-400/30"
         }`}
       >
-        <span className={isSuccess ? "text-[#2E8B57]" : "text-white"}>
-          {isSuccess ? <IconCheckCircle className="w-5 h-5 text-emerald-400" /> : <IconInfo className="w-5 h-5" />}
+        <span className={isSuccess ? "text-[#718C56]" : "text-white"}>
+          {isSuccess ? (
+            <IconCheckCircle className="w-5 h-5 text-emerald-400" />
+          ) : (
+            <IconInfo className="w-5 h-5" />
+          )}
         </span>
         <span className="max-w-xs">{message}</span>
         <button
