@@ -167,12 +167,12 @@ export default function DashboardMenu({
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Top Header & Actions */}
-      <div className="bg-[#252B28] p-5 rounded-3xl border border-[#E4E8E5]/10 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+      <div className="bg-[#2A211B] p-5 rounded-3xl border border-[#F5EBDD]/10 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
         <div>
-          <h2 className="font-display font-extrabold text-xl text-[#E4E8E5]">
+          <h2 className="font-display font-extrabold text-xl text-[#F5EBDD]">
             Menu Dishes & Pricing Catalog
           </h2>
-          <p className="text-xs text-[#AFB8B0]">
+          <p className="text-xs text-[#C19A6B]">
             {filteredProducts.length} dishes displayed • Add, edit, or adjust pricing & stock
           </p>
         </div>
@@ -180,7 +180,7 @@ export default function DashboardMenu({
         <div className="flex items-center gap-3">
           {/* Search */}
           <div className="relative flex-1 md:w-64">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#AFB8B0]">
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C19A6B]">
               <IconSearch className="w-4 h-4" />
             </span>
             <input
@@ -188,13 +188,13 @@ export default function DashboardMenu({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search dishes..."
-              className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#252B28]/70 border border-[#E4E8E5]/10 text-xs font-medium focus:outline-none focus:border-[#718C56]"
+              className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#2A211B]/70 border border-[#F5EBDD]/10 text-xs font-medium focus:outline-none focus:border-[#D4A017]"
             />
           </div>
 
           <button
             onClick={handleOpenAdd}
-            className="bg-[#718C56] hover:bg-[#607A46] text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-lg shadow-[#718C56]/30 flex items-center gap-1.5 shrink-0 transition-all active:scale-95"
+            className="bg-[#D4A017] hover:bg-[#B98B12] text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-lg shadow-[#D4A017]/30 flex items-center gap-1.5 shrink-0 transition-all active:scale-95"
           >
             <IconPlus className="w-4 h-4" />
             <span>Add Dish</span>
@@ -210,8 +210,8 @@ export default function DashboardMenu({
             onClick={() => setCategoryFilter(cat)}
             className={`shrink-0 px-4 py-2 rounded-2xl text-xs font-bold transition-all ${
               categoryFilter === cat
-                ? "bg-[#171B19] text-white shadow"
-                : "bg-[#252B28] text-[#E4E8E5]/70 hover:bg-[#252B28] border border-[#E4E8E5]/10"
+                ? "bg-[#171513] text-white shadow"
+                : "bg-[#2A211B] text-[#F5EBDD]/70 hover:bg-[#2A211B] border border-[#F5EBDD]/10"
             }`}
           >
             {cat}
@@ -220,10 +220,10 @@ export default function DashboardMenu({
       </div>
 
       {/* Products Catalog Table */}
-      <div className="bg-[#252B28] rounded-3xl border border-[#E4E8E5]/10 overflow-hidden shadow-sm">
+      <div className="bg-[#2A211B] rounded-3xl border border-[#F5EBDD]/10 overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#252B28]/60 border-b border-[#E4E8E5]/10 text-[#AFB8B0] uppercase text-[10px] font-extrabold">
+            <thead className="bg-[#2A211B]/60 border-b border-[#F5EBDD]/10 text-[#C19A6B] uppercase text-[10px] font-extrabold">
               <tr>
                 <th className="py-3.5 px-4">Dish Info</th>
                 <th className="py-3.5 px-4">Category</th>
@@ -233,30 +233,30 @@ export default function DashboardMenu({
                 <th className="py-3.5 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E4E8E5]/5">
+            <tbody className="divide-y divide-[#F5EBDD]/5">
               {filteredProducts.map((product) => (
-                <tr key={product.id} className="hover:bg-[#171B19] transition-colors">
+                <tr key={product.id} className="hover:bg-[#171513] transition-colors">
                   {/* Dish Info */}
                   <td className="py-3.5 px-4">
                     <div className="flex items-center gap-3">
                       <img
                         src={product.image}
                         alt={product.title}
-                        className="w-12 h-12 object-cover rounded-xl shrink-0 bg-[#252B28]"
+                        className="w-12 h-12 object-cover rounded-xl shrink-0 bg-[#2A211B]"
                       />
                       <div>
                         <div className="flex items-center gap-1.5">
-                          <p className="font-bold text-[#E4E8E5] text-xs sm:text-sm">
+                          <p className="font-bold text-[#F5EBDD] text-xs sm:text-sm">
                             {product.title}
                           </p>
                           {product.isSpicy && <span title="Spicy">🌶️</span>}
                           {product.badge && (
-                            <span className="bg-[#303A2B] text-[#718C56] text-[9px] font-extrabold px-1.5 py-0.5 rounded">
+                            <span className="bg-[#3B3020] text-[#D4A017] text-[9px] font-extrabold px-1.5 py-0.5 rounded">
                               {product.badge}
                             </span>
                           )}
                         </div>
-                        <p className="text-[10px] text-[#AFB8B0] line-clamp-1 max-w-xs">
+                        <p className="text-[10px] text-[#C19A6B] line-clamp-1 max-w-xs">
                           {product.description}
                         </p>
                       </div>
@@ -265,22 +265,22 @@ export default function DashboardMenu({
 
                   {/* Category */}
                   <td className="py-3.5 px-4">
-                    <span className="bg-[#252B28] text-[#E4E8E5] px-2.5 py-1 rounded-lg text-[11px] font-semibold">
+                    <span className="bg-[#2A211B] text-[#F5EBDD] px-2.5 py-1 rounded-lg text-[11px] font-semibold">
                       {product.category}
                     </span>
                   </td>
 
                   {/* Price */}
                   <td className="py-3.5 px-4">
-                    <span className="font-display font-extrabold text-sm text-[#718C56]">
+                    <span className="font-display font-extrabold text-sm text-[#D4A017]">
                       Rs. {product.price.toLocaleString()}
                     </span>
                   </td>
 
                   {/* Rating */}
                   <td className="py-3.5 px-4">
-                    <div className="flex items-center gap-1 font-bold text-[#E4E8E5]">
-                      <IconStar className="w-3.5 h-3.5 text-[#C5E879] fill-[#C5E879]" />
+                    <div className="flex items-center gap-1 font-bold text-[#F5EBDD]">
+                      <IconStar className="w-3.5 h-3.5 text-[#C19A6B] fill-[#C19A6B]" />
                       <span>{product.rating}</span>
                     </div>
                   </td>
@@ -304,7 +304,7 @@ export default function DashboardMenu({
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => handleOpenEdit(product)}
-                        className="bg-[#252B28] hover:bg-[#171B19] hover:text-white text-[#E4E8E5] px-3 py-1.5 rounded-xl font-bold text-xs transition-colors"
+                        className="bg-[#2A211B] hover:bg-[#171513] hover:text-white text-[#F5EBDD] px-3 py-1.5 rounded-xl font-bold text-xs transition-colors"
                       >
                         Edit
                       </button>
@@ -335,11 +335,11 @@ export default function DashboardMenu({
           }}
         >
           <div
-            className="relative w-full max-w-2xl bg-[#252B28] rounded-3xl shadow-2xl overflow-hidden animate-pop-in max-h-[92vh] flex flex-col"
+            className="relative w-full max-w-2xl bg-[#2A211B] rounded-3xl shadow-2xl overflow-hidden animate-pop-in max-h-[92vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="bg-[#171B19] text-white p-6 flex items-center justify-between">
+            <div className="bg-[#171513] text-white p-6 flex items-center justify-between">
               <h3 className="font-display font-extrabold text-xl text-white">
                 {editingProduct ? `Edit "${editingProduct.title}"` : "Add New Dish to Menu"}
               </h3>
@@ -362,23 +362,23 @@ export default function DashboardMenu({
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-bold text-[#E4E8E5] mb-1">Dish Name *</label>
+                  <label className="block font-bold text-[#F5EBDD] mb-1">Dish Name *</label>
                   <input
                     type="text"
                     required
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     placeholder="e.g. Smoky Truffle Beef Burger"
-                    className="w-full p-2.5 rounded-xl bg-[#252B28]/70 border border-[#E4E8E5]/10 text-xs focus:bg-[#252B28] focus:outline-none"
+                    className="w-full p-2.5 rounded-xl bg-[#2A211B]/70 border border-[#F5EBDD]/10 text-xs focus:bg-[#2A211B] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#E4E8E5] mb-1">Category *</label>
+                  <label className="block font-bold text-[#F5EBDD] mb-1">Category *</label>
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full p-2.5 rounded-xl bg-[#252B28]/70 border border-[#E4E8E5]/10 text-xs focus:bg-[#252B28] focus:outline-none"
+                    className="w-full p-2.5 rounded-xl bg-[#2A211B]/70 border border-[#F5EBDD]/10 text-xs focus:bg-[#2A211B] focus:outline-none"
                   >
                     {categories
                       .filter((c) => c !== "All")
@@ -393,43 +393,43 @@ export default function DashboardMenu({
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block font-bold text-[#E4E8E5] mb-1">Price (PKR) *</label>
+                  <label className="block font-bold text-[#F5EBDD] mb-1">Price (PKR) *</label>
                   <input
                     type="number"
                     required
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                     placeholder="e.g. 799"
-                    className="w-full p-2.5 rounded-xl bg-[#252B28]/70 border border-[#E4E8E5]/10 text-xs focus:bg-[#252B28] focus:outline-none"
+                    className="w-full p-2.5 rounded-xl bg-[#2A211B]/70 border border-[#F5EBDD]/10 text-xs focus:bg-[#2A211B] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#E4E8E5] mb-1">Badge Tag</label>
+                  <label className="block font-bold text-[#F5EBDD] mb-1">Badge Tag</label>
                   <input
                     type="text"
                     value={formData.badge}
                     onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
                     placeholder="e.g. Bestseller / 20% OFF"
-                    className="w-full p-2.5 rounded-xl bg-[#252B28]/70 border border-[#E4E8E5]/10 text-xs focus:bg-[#252B28] focus:outline-none"
+                    className="w-full p-2.5 rounded-xl bg-[#2A211B]/70 border border-[#F5EBDD]/10 text-xs focus:bg-[#2A211B] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-[#E4E8E5] mb-1">Prep Time</label>
+                  <label className="block font-bold text-[#F5EBDD] mb-1">Prep Time</label>
                   <input
                     type="text"
                     value={formData.prepTime}
                     onChange={(e) => setFormData({ ...formData, prepTime: e.target.value })}
                     placeholder="e.g. 15-20 min"
-                    className="w-full p-2.5 rounded-xl bg-[#252B28]/70 border border-[#E4E8E5]/10 text-xs focus:bg-[#252B28] focus:outline-none"
+                    className="w-full p-2.5 rounded-xl bg-[#2A211B]/70 border border-[#F5EBDD]/10 text-xs focus:bg-[#2A211B] focus:outline-none"
                   />
                 </div>
               </div>
 
               {/* Description */}
               <div>
-                <label className="block font-bold text-[#E4E8E5] mb-1">
+                <label className="block font-bold text-[#F5EBDD] mb-1">
                   Mouth-watering Description
                 </label>
                 <textarea
@@ -437,22 +437,22 @@ export default function DashboardMenu({
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Describe ingredients, meat cut, crust, sauce flavors..."
-                  className="w-full p-2.5 rounded-xl bg-[#252B28]/70 border border-[#E4E8E5]/10 text-xs focus:bg-[#252B28] focus:outline-none resize-none"
+                  className="w-full p-2.5 rounded-xl bg-[#2A211B]/70 border border-[#F5EBDD]/10 text-xs focus:bg-[#2A211B] focus:outline-none resize-none"
                 />
               </div>
 
               {/* Image URL & Quick Presets */}
               <div>
-                <label className="block font-bold text-[#E4E8E5] mb-1">Food Image URL</label>
+                <label className="block font-bold text-[#F5EBDD] mb-1">Food Image URL</label>
                 <input
                   type="url"
                   value={formData.image}
                   onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                   placeholder="https://images.unsplash.com/..."
-                  className="w-full p-2.5 rounded-xl bg-[#252B28]/70 border border-[#E4E8E5]/10 text-xs focus:bg-[#252B28] focus:outline-none mb-2"
+                  className="w-full p-2.5 rounded-xl bg-[#2A211B]/70 border border-[#F5EBDD]/10 text-xs focus:bg-[#2A211B] focus:outline-none mb-2"
                 />
 
-                <p className="text-[10px] text-[#AFB8B0] mb-1.5 font-semibold uppercase">
+                <p className="text-[10px] text-[#C19A6B] mb-1.5 font-semibold uppercase">
                   Or pick a high-res food photo preset:
                 </p>
                 <div className="flex flex-wrap gap-1.5">
@@ -463,7 +463,7 @@ export default function DashboardMenu({
                       onClick={() => setFormData({ ...formData, image: preset.url })}
                       className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-colors ${
                         formData.image === preset.url
-                          ? "bg-[#718C56] text-white border-[#718C56]"
+                          ? "bg-[#D4A017] text-white border-[#D4A017]"
                           : "bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100"
                       }`}
                     >
@@ -474,15 +474,15 @@ export default function DashboardMenu({
               </div>
 
               {/* Dietary Toggles */}
-              <div className="flex gap-4 pt-2 border-t border-[#E4E8E5]/10">
+              <div className="flex gap-4 pt-2 border-t border-[#F5EBDD]/10">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={formData.isSpicy}
                     onChange={(e) => setFormData({ ...formData, isSpicy: e.target.checked })}
-                    className="w-4 h-4 text-[#718C56] accent-[#718C56]"
+                    className="w-4 h-4 text-[#D4A017] accent-[#D4A017]"
                   />
-                  <span className="font-bold text-[#E4E8E5]">🌶️ Spicy Flavor</span>
+                  <span className="font-bold text-[#F5EBDD]">🌶️ Spicy Flavor</span>
                 </label>
 
                 <label className="flex items-center gap-2 cursor-pointer">
@@ -490,9 +490,9 @@ export default function DashboardMenu({
                     type="checkbox"
                     checked={formData.isVeg}
                     onChange={(e) => setFormData({ ...formData, isVeg: e.target.checked })}
-                    className="w-4 h-4 text-[#718C56] accent-[#718C56]"
+                    className="w-4 h-4 text-[#D4A017] accent-[#D4A017]"
                   />
-                  <span className="font-bold text-[#E4E8E5]">🥬 Vegetarian Friendly</span>
+                  <span className="font-bold text-[#F5EBDD]">🥬 Vegetarian Friendly</span>
                 </label>
               </div>
 
@@ -504,13 +504,13 @@ export default function DashboardMenu({
                     setIsAddModalOpen(false);
                     setEditingProduct(null);
                   }}
-                  className="flex-1 py-3 border border-[#E4E8E5]/20 text-[#E4E8E5] font-bold rounded-xl hover:bg-[#252B28]"
+                  className="flex-1 py-3 border border-[#F5EBDD]/20 text-[#F5EBDD] font-bold rounded-xl hover:bg-[#2A211B]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-3 bg-[#718C56] hover:bg-[#607A46] text-white font-extrabold rounded-xl shadow-lg shadow-[#718C56]/30"
+                  className="flex-1 py-3 bg-[#D4A017] hover:bg-[#B98B12] text-white font-extrabold rounded-xl shadow-lg shadow-[#D4A017]/30"
                 >
                   {editingProduct ? "Save Changes" : "Publish to Menu"}
                 </button>

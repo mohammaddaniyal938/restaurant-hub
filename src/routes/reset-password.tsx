@@ -55,7 +55,7 @@ function ResetPassword() {
         </p>
 
         {message && (
-          <div className="mt-4 rounded-xl bg-[#303A2B] text-ink text-sm font-medium px-3 py-2">
+          <div className="mt-4 rounded-xl bg-[#3B3020] text-ink text-sm font-medium px-3 py-2">
             {message}
           </div>
         )}
@@ -64,7 +64,7 @@ function ResetPassword() {
           type="password"
           required
           autoComplete="new-password"
-          className="mt-5 w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#718C56]"
+          className="mt-5 w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#D4A017]"
           placeholder="New password"
           value={password}
           maxLength={72}

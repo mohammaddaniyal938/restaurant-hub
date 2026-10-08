@@ -171,14 +171,14 @@ function AuthPage() {
           {mode === "signup" && (
             <>
               <input
-                className="w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#718C56]"
+                className="w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#D4A017]"
                 placeholder="Full name"
                 value={fullName}
                 maxLength={80}
                 onChange={(e) => setFullName(e.target.value)}
               />
               <input
-                className="w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#718C56]"
+                className="w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#D4A017]"
                 placeholder="Phone (03xx xxxxxxx)"
                 value={phone}
                 maxLength={20}
@@ -191,7 +191,7 @@ function AuthPage() {
             type="email"
             required
             autoComplete="email"
-            className="w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#718C56]"
+            className="w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#D4A017]"
             placeholder="Email address"
             value={email}
             maxLength={255}
@@ -203,7 +203,7 @@ function AuthPage() {
               type="password"
               required
               autoComplete={mode === "signup" ? "new-password" : "current-password"}
-              className="w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#718C56]"
+              className="w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#D4A017]"
               placeholder="Password"
               value={password}
               maxLength={72}

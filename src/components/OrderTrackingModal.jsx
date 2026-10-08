@@ -56,11 +56,11 @@ export default function OrderTrackingModal({ order, onClose, onNewOrder }) {
   return (
     <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/80 p-3 sm:p-5 backdrop-blur-md animate-fade-in">
       <div
-        className="relative w-full max-w-2xl bg-[#252B28] rounded-3xl shadow-2xl overflow-hidden animate-pop-in max-h-[92vh] flex flex-col"
+        className="relative w-full max-w-2xl bg-[#2A211B] rounded-3xl shadow-2xl overflow-hidden animate-pop-in max-h-[92vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-[#171B19] text-white p-6 relative">
+        <div className="bg-[#171513] text-white p-6 relative">
           <button
             onClick={onClose}
             className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
@@ -70,7 +70,7 @@ export default function OrderTrackingModal({ order, onClose, onNewOrder }) {
           </button>
 
           <div className="flex items-center gap-2 mb-2">
-            <span className="bg-[#718C56] text-white text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full">
+            <span className="bg-[#D4A017] text-white text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full">
               Live Order Status
             </span>
             <span className="text-xs text-white/60 font-mono">{order.orderId}</span>
@@ -85,7 +85,7 @@ export default function OrderTrackingModal({ order, onClose, onNewOrder }) {
           </h2>
 
           <p className="text-xs sm:text-sm text-white/70 flex items-center gap-2">
-            <IconClock className="w-4 h-4 text-[#C5E879]" />
+            <IconClock className="w-4 h-4 text-[#C19A6B]" />
             <span>
               {order.status === "cancelled"
                 ? "This order has been cancelled."
@@ -99,8 +99,8 @@ export default function OrderTrackingModal({ order, onClose, onNewOrder }) {
         {/* Scrollable Content */}
         <div className="p-6 overflow-y-auto scroll-thin flex-1 space-y-6">
           {/* Progress Timeline */}
-          <div className="p-5 rounded-2xl bg-[#171B19] border border-[#E4E8E5]/10 shadow-sm">
-            <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#AFB8B0] mb-4">
+          <div className="p-5 rounded-2xl bg-[#171513] border border-[#F5EBDD]/10 shadow-sm">
+            <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#C19A6B] mb-4">
               Live Progress
             </h3>
 
@@ -113,25 +113,25 @@ export default function OrderTrackingModal({ order, onClose, onNewOrder }) {
                     key={s.num}
                     className={`flex flex-col items-center text-center p-3 rounded-xl border transition-all ${
                       isCurrent
-                        ? "bg-[#303A2B] border-[#718C56] shadow-sm animate-pulse"
+                        ? "bg-[#3B3020] border-[#D4A017] shadow-sm animate-pulse"
                         : isCompleted
-                          ? "bg-[#303A2B] border-[#718C56]/30"
+                          ? "bg-[#3B3020] border-[#D4A017]/30"
                           : "bg-gray-50 border-gray-100 opacity-50"
                     }`}
                   >
                     <div
                       className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold mb-2 shadow-sm ${
                         isCurrent
-                          ? "bg-[#718C56] text-white"
+                          ? "bg-[#D4A017] text-white"
                           : isCompleted
-                            ? "bg-[#718C56] text-white"
+                            ? "bg-[#D4A017] text-white"
                             : "bg-gray-200 text-gray-500"
                       }`}
                     >
                       {s.icon}
                     </div>
-                    <p className="text-xs font-bold text-[#E4E8E5]">{s.title}</p>
-                    <p className="text-[10px] text-[#AFB8B0] mt-0.5 leading-tight">{s.desc}</p>
+                    <p className="text-xs font-bold text-[#F5EBDD]">{s.title}</p>
+                    <p className="text-[10px] text-[#C19A6B] mt-0.5 leading-tight">{s.desc}</p>
                   </div>
                 );
               })}
@@ -139,14 +139,14 @@ export default function OrderTrackingModal({ order, onClose, onNewOrder }) {
           </div>
 
           {/* Rider Card */}
-          <div className="p-4 rounded-2xl bg-[#252B28] border border-[#E4E8E5]/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="p-4 rounded-2xl bg-[#2A211B] border border-[#F5EBDD]/10 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3 w-full sm:w-auto">
-              <div className="w-12 h-12 rounded-2xl bg-[#718C56] text-white font-extrabold text-lg flex items-center justify-center shadow">
+              <div className="w-12 h-12 rounded-2xl bg-[#D4A017] text-white font-extrabold text-lg flex items-center justify-center shadow">
                 🛵
               </div>
               <div>
-                <p className="text-xs font-bold text-[#E4E8E5]">Tariq Mahmood (Express Rider)</p>
-                <p className="text-[11px] text-[#AFB8B0]">
+                <p className="text-xs font-bold text-[#F5EBDD]">Tariq Mahmood (Express Rider)</p>
+                <p className="text-[11px] text-[#C19A6B]">
                   Honda CD70 • KHI-9482 • ⭐ 4.9 (850+ deliveries)
                 </p>
               </div>
@@ -156,7 +156,7 @@ export default function OrderTrackingModal({ order, onClose, onNewOrder }) {
               onClick={() =>
                 alert(`Calling rider Tariq at 0300-8429184 for order ${order.orderId}`)
               }
-              className="w-full sm:w-auto bg-[#171B19] hover:bg-[#718C56] text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors flex items-center justify-center gap-1.5 shadow"
+              className="w-full sm:w-auto bg-[#171513] hover:bg-[#D4A017] text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors flex items-center justify-center gap-1.5 shadow"
             >
               <IconPhone className="w-3.5 h-3.5" />
               <span>Call Rider</span>
@@ -165,23 +165,23 @@ export default function OrderTrackingModal({ order, onClose, onNewOrder }) {
 
           {/* Delivery Details */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-            <div className="p-3.5 rounded-2xl bg-[#252B28] border border-[#E4E8E5]/10 shadow-sm">
-              <p className="font-bold text-[#AFB8B0] uppercase text-[10px] mb-1">Delivering To</p>
-              <p className="font-bold text-[#E4E8E5]">{order.name}</p>
-              <p className="text-[#AFB8B0] mt-0.5">{order.phone}</p>
-              <p className="text-[#E4E8E5] mt-1 font-medium">
+            <div className="p-3.5 rounded-2xl bg-[#2A211B] border border-[#F5EBDD]/10 shadow-sm">
+              <p className="font-bold text-[#C19A6B] uppercase text-[10px] mb-1">Delivering To</p>
+              <p className="font-bold text-[#F5EBDD]">{order.name}</p>
+              <p className="text-[#C19A6B] mt-0.5">{order.phone}</p>
+              <p className="text-[#F5EBDD] mt-1 font-medium">
                 {order.address}, {order.area}
               </p>
               {order.deliveryNotes && (
-                <p className="text-[11px] text-[#718C56] mt-1.5 italic">
+                <p className="text-[11px] text-[#D4A017] mt-1.5 italic">
                   Note: "{order.deliveryNotes}"
                 </p>
               )}
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-[#252B28] border border-[#E4E8E5]/10 shadow-sm">
-              <p className="font-bold text-[#AFB8B0] uppercase text-[10px] mb-1">Payment Info</p>
-              <p className="font-bold text-[#E4E8E5]">
+            <div className="p-3.5 rounded-2xl bg-[#2A211B] border border-[#F5EBDD]/10 shadow-sm">
+              <p className="font-bold text-[#C19A6B] uppercase text-[10px] mb-1">Payment Info</p>
+              <p className="font-bold text-[#F5EBDD]">
                 {order.paymentMethod === "cod"
                   ? "💵 Cash on Delivery"
                   : order.paymentMethod === "jazzcash"
@@ -190,28 +190,28 @@ export default function OrderTrackingModal({ order, onClose, onNewOrder }) {
                       ? "💳 Card Machine on Delivery"
                       : "🔒 Paid Online"}
               </p>
-              <p className="text-lg font-extrabold text-[#718C56] mt-2 font-display">
+              <p className="text-lg font-extrabold text-[#D4A017] mt-2 font-display">
                 Rs. {order.billSummary?.grandTotal?.toLocaleString() || 0}
               </p>
             </div>
           </div>
 
           {/* Ordered Items Summary */}
-          <div className="p-4 rounded-2xl bg-[#171B19] border border-[#E4E8E5]/10 space-y-2">
-            <div className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-[#AFB8B0] mb-2">
-              <IconReceipt className="w-4 h-4 text-[#718C56]" /> Order Summary
+          <div className="p-4 rounded-2xl bg-[#171513] border border-[#F5EBDD]/10 space-y-2">
+            <div className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-[#C19A6B] mb-2">
+              <IconReceipt className="w-4 h-4 text-[#D4A017]" /> Order Summary
             </div>
 
             {order.items?.map((item, idx) => (
               <div
                 key={idx}
-                className="flex justify-between items-center text-xs py-1 border-b border-[#E4E8E5]/5 last:border-0"
+                className="flex justify-between items-center text-xs py-1 border-b border-[#F5EBDD]/5 last:border-0"
               >
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-[#718C56]">{item.qty}x</span>
-                  <span className="font-semibold text-[#E4E8E5]">{item.title}</span>
+                  <span className="font-bold text-[#D4A017]">{item.qty}x</span>
+                  <span className="font-semibold text-[#F5EBDD]">{item.title}</span>
                 </div>
-                <span className="font-bold text-[#E4E8E5]">
+                <span className="font-bold text-[#F5EBDD]">
                   Rs. {((item.customUnitPrice || item.price) * item.qty).toLocaleString()}
                 </span>
               </div>
@@ -220,10 +220,10 @@ export default function OrderTrackingModal({ order, onClose, onNewOrder }) {
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 sm:p-5 bg-[#252B28] border-t border-[#E4E8E5]/10 flex gap-3">
+        <div className="p-4 sm:p-5 bg-[#2A211B] border-t border-[#F5EBDD]/10 flex gap-3">
           <button
             onClick={() => window.print()}
-            className="flex-1 py-3 bg-[#252B28] hover:bg-gray-100 border border-[#E4E8E5]/15 text-[#E4E8E5] font-bold text-xs sm:text-sm rounded-xl transition-colors flex items-center justify-center gap-1.5"
+            className="flex-1 py-3 bg-[#2A211B] hover:bg-gray-100 border border-[#F5EBDD]/15 text-[#F5EBDD] font-bold text-xs sm:text-sm rounded-xl transition-colors flex items-center justify-center gap-1.5"
           >
             <IconReceipt className="w-4 h-4" />
             <span>Print Receipt</span>
@@ -234,7 +234,7 @@ export default function OrderTrackingModal({ order, onClose, onNewOrder }) {
               onClose();
               if (onNewOrder) onNewOrder();
             }}
-            className="flex-1 py-3 bg-[#718C56] hover:bg-[#607A46] text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-lg shadow-[#718C56]/30 transition-all flex items-center justify-center gap-1.5"
+            className="flex-1 py-3 bg-[#D4A017] hover:bg-[#B98B12] text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-lg shadow-[#D4A017]/30 transition-all flex items-center justify-center gap-1.5"
           >
             <span>Order More Bites</span>
             <span>🍔</span>

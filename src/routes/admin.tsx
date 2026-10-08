@@ -86,12 +86,12 @@ function AdminDashboardPage() {
 
   if (auth.loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#252B28]">
+      <div className="flex min-h-screen items-center justify-center bg-[#2A211B]">
         <div className="text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-3xl bg-[#718C56] text-3xl text-white shadow-xl shadow-[#718C56]/25">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-3xl bg-[#D4A017] text-3xl text-white shadow-xl shadow-[#D4A017]/25">
             🍔
           </div>
-          <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#AFB8B0]">
+          <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#C19A6B]">
             Checking admin access...
           </p>
         </div>
@@ -104,7 +104,7 @@ function AdminDashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#252B28]">
+    <div className="min-h-screen bg-[#2A211B]">
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
 
       <AdminDashboard

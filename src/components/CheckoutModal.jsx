@@ -96,13 +96,13 @@ export default function CheckoutModal({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-2xl bg-[#252B28] rounded-3xl shadow-2xl overflow-hidden animate-pop-in max-h-[92vh] flex flex-col"
+        className="relative w-full max-w-2xl bg-[#2A211B] rounded-3xl shadow-2xl overflow-hidden animate-pop-in max-h-[92vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="px-6 py-4 bg-[#171B19] text-white flex items-center justify-between border-b border-white/10">
+        <div className="px-6 py-4 bg-[#171513] text-white flex items-center justify-between border-b border-white/10">
           <div className="flex items-center gap-2">
-            <span className="w-8 h-8 rounded-xl bg-[#718C56] flex items-center justify-center text-sm shadow">
+            <span className="w-8 h-8 rounded-xl bg-[#D4A017] flex items-center justify-center text-sm shadow">
               🍔
             </span>
             <div>
@@ -128,13 +128,13 @@ export default function CheckoutModal({
         <form onSubmit={handleSubmit} className="p-6 overflow-y-auto scroll-thin flex-1 space-y-6">
           {/* Section 1: Customer Details */}
           <div>
-            <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#AFB8B0] mb-3 flex items-center gap-1.5">
-              <IconUser className="w-4 h-4 text-[#718C56]" /> 1. Contact Information
+            <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#C19A6B] mb-3 flex items-center gap-1.5">
+              <IconUser className="w-4 h-4 text-[#D4A017]" /> 1. Contact Information
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-[#E4E8E5] mb-1">
+                <label className="block text-xs font-semibold text-[#F5EBDD] mb-1">
                   Full Name *
                 </label>
                 <div className="relative">
@@ -144,8 +144,8 @@ export default function CheckoutModal({
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="e.g. Daniyal Khan"
-                    className={`w-full text-xs sm:text-sm p-3 rounded-xl bg-[#252B28]/60 border focus:bg-[#252B28] focus:outline-none transition-all ${
-                      errors.name ? "border-red-500" : "border-[#E4E8E5]/15 focus:border-[#718C56]"
+                    className={`w-full text-xs sm:text-sm p-3 rounded-xl bg-[#2A211B]/60 border focus:bg-[#2A211B] focus:outline-none transition-all ${
+                      errors.name ? "border-red-500" : "border-[#F5EBDD]/15 focus:border-[#D4A017]"
                     }`}
                   />
                 </div>
@@ -155,7 +155,7 @@ export default function CheckoutModal({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#E4E8E5] mb-1">
+                <label className="block text-xs font-semibold text-[#F5EBDD] mb-1">
                   Phone Number (for Rider) *
                 </label>
                 <div className="relative">
@@ -165,8 +165,8 @@ export default function CheckoutModal({
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="0300-1234567"
-                    className={`w-full text-xs sm:text-sm p-3 rounded-xl bg-[#252B28]/60 border focus:bg-[#252B28] focus:outline-none transition-all ${
-                      errors.phone ? "border-red-500" : "border-[#E4E8E5]/15 focus:border-[#718C56]"
+                    className={`w-full text-xs sm:text-sm p-3 rounded-xl bg-[#2A211B]/60 border focus:bg-[#2A211B] focus:outline-none transition-all ${
+                      errors.phone ? "border-red-500" : "border-[#F5EBDD]/15 focus:border-[#D4A017]"
                     }`}
                   />
                 </div>
@@ -176,7 +176,7 @@ export default function CheckoutModal({
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-semibold text-[#E4E8E5] mb-1">
+                <label className="block text-xs font-semibold text-[#F5EBDD] mb-1">
                   Email Address (for receipt)
                 </label>
                 <input
@@ -185,7 +185,7 @@ export default function CheckoutModal({
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="e.g. daniyal@example.com"
-                  className="w-full text-xs sm:text-sm p-3 rounded-xl bg-[#252B28]/60 border border-[#E4E8E5]/15 focus:border-[#718C56] focus:bg-[#252B28] focus:outline-none transition-all"
+                  className="w-full text-xs sm:text-sm p-3 rounded-xl bg-[#2A211B]/60 border border-[#F5EBDD]/15 focus:border-[#D4A017] focus:bg-[#2A211B] focus:outline-none transition-all"
                 />
               </div>
             </div>
@@ -193,20 +193,20 @@ export default function CheckoutModal({
 
           {/* Section 2: Delivery Address */}
           <div>
-            <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#AFB8B0] mb-3 flex items-center gap-1.5">
-              <IconMapPin className="w-4 h-4 text-[#718C56]" /> 2. Delivery Address in Karachi
+            <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#C19A6B] mb-3 flex items-center gap-1.5">
+              <IconMapPin className="w-4 h-4 text-[#D4A017]" /> 2. Delivery Address in Karachi
             </h3>
 
             <div className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-[#E4E8E5] mb-1">
+                <label className="block text-xs font-semibold text-[#F5EBDD] mb-1">
                   Karachi Town / Area *
                 </label>
                 <select
                   name="area"
                   value={formData.area}
                   onChange={handleChange}
-                  className="w-full text-xs sm:text-sm p-3 rounded-xl bg-[#252B28]/60 border border-[#E4E8E5]/15 focus:border-[#718C56] focus:bg-[#252B28] focus:outline-none"
+                  className="w-full text-xs sm:text-sm p-3 rounded-xl bg-[#2A211B]/60 border border-[#F5EBDD]/15 focus:border-[#D4A017] focus:bg-[#2A211B] focus:outline-none"
                 >
                   {KARACHI_AREAS.map((area) => (
                     <option key={area} value={area}>
@@ -217,7 +217,7 @@ export default function CheckoutModal({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#E4E8E5] mb-1">
+                <label className="block text-xs font-semibold text-[#F5EBDD] mb-1">
                   Complete Address (House #, Street, Block, Landmark) *
                 </label>
                 <textarea
@@ -226,8 +226,8 @@ export default function CheckoutModal({
                   value={formData.address}
                   onChange={handleChange}
                   placeholder="e.g. House 42-B, Street 14, Near Boat Basin, Block 5"
-                  className={`w-full text-xs sm:text-sm p-3 rounded-xl bg-[#252B28]/60 border focus:bg-[#252B28] focus:outline-none resize-none transition-all ${
-                    errors.address ? "border-red-500" : "border-[#E4E8E5]/15 focus:border-[#718C56]"
+                  className={`w-full text-xs sm:text-sm p-3 rounded-xl bg-[#2A211B]/60 border focus:bg-[#2A211B] focus:outline-none resize-none transition-all ${
+                    errors.address ? "border-red-500" : "border-[#F5EBDD]/15 focus:border-[#D4A017]"
                   }`}
                 />
                 {errors.address && (
@@ -236,7 +236,7 @@ export default function CheckoutModal({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#E4E8E5] mb-1">
+                <label className="block text-xs font-semibold text-[#F5EBDD] mb-1">
                   Rider Delivery Notes (Optional)
                 </label>
                 <input
@@ -245,7 +245,7 @@ export default function CheckoutModal({
                   value={formData.deliveryNotes}
                   onChange={handleChange}
                   placeholder="e.g. Leave with guard, Ring door bell twice"
-                  className="w-full text-xs sm:text-sm p-3 rounded-xl bg-[#252B28]/60 border border-[#E4E8E5]/15 focus:border-[#718C56] focus:bg-[#252B28] focus:outline-none"
+                  className="w-full text-xs sm:text-sm p-3 rounded-xl bg-[#2A211B]/60 border border-[#F5EBDD]/15 focus:border-[#D4A017] focus:bg-[#2A211B] focus:outline-none"
                 />
               </div>
             </div>
@@ -253,16 +253,16 @@ export default function CheckoutModal({
 
           {/* Section 3: Payment Method */}
           <div>
-            <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#AFB8B0] mb-3 flex items-center gap-1.5">
-              <IconCreditCard className="w-4 h-4 text-[#718C56]" /> 3. Payment Method
+            <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#C19A6B] mb-3 flex items-center gap-1.5">
+              <IconCreditCard className="w-4 h-4 text-[#D4A017]" /> 3. Payment Method
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               <label
                 className={`p-3.5 rounded-2xl border flex items-center gap-3 cursor-pointer transition-all ${
                   formData.paymentMethod === "cod"
-                    ? "bg-[#303A2B] border-[#718C56] shadow-sm"
-                    : "bg-[#252B28] border-[#E4E8E5]/15 hover:border-[#718C56]/40"
+                    ? "bg-[#3B3020] border-[#D4A017] shadow-sm"
+                    : "bg-[#2A211B] border-[#F5EBDD]/15 hover:border-[#D4A017]/40"
                 }`}
               >
                 <input
@@ -271,21 +271,21 @@ export default function CheckoutModal({
                   value="cod"
                   checked={formData.paymentMethod === "cod"}
                   onChange={handleChange}
-                  className="w-4 h-4 text-[#718C56] focus:ring-[#718C56] accent-[#718C56]"
+                  className="w-4 h-4 text-[#D4A017] focus:ring-[#D4A017] accent-[#D4A017]"
                 />
                 <div>
-                  <p className="text-xs font-bold text-[#E4E8E5] flex items-center gap-1.5">
+                  <p className="text-xs font-bold text-[#F5EBDD] flex items-center gap-1.5">
                     💵 Cash on Delivery
                   </p>
-                  <p className="text-[10px] text-[#AFB8B0]">Pay with cash upon arrival</p>
+                  <p className="text-[10px] text-[#C19A6B]">Pay with cash upon arrival</p>
                 </div>
               </label>
 
               <label
                 className={`p-3.5 rounded-2xl border flex items-center gap-3 cursor-pointer transition-all ${
                   formData.paymentMethod === "jazzcash"
-                    ? "bg-[#303A2B] border-[#718C56] shadow-sm"
-                    : "bg-[#252B28] border-[#E4E8E5]/15 hover:border-[#718C56]/40"
+                    ? "bg-[#3B3020] border-[#D4A017] shadow-sm"
+                    : "bg-[#2A211B] border-[#F5EBDD]/15 hover:border-[#D4A017]/40"
                 }`}
               >
                 <input
@@ -294,13 +294,13 @@ export default function CheckoutModal({
                   value="jazzcash"
                   checked={formData.paymentMethod === "jazzcash"}
                   onChange={handleChange}
-                  className="w-4 h-4 text-[#718C56] focus:ring-[#718C56] accent-[#718C56]"
+                  className="w-4 h-4 text-[#D4A017] focus:ring-[#D4A017] accent-[#D4A017]"
                 />
                 <div>
-                  <p className="text-xs font-bold text-[#E4E8E5] flex items-center gap-1.5">
+                  <p className="text-xs font-bold text-[#F5EBDD] flex items-center gap-1.5">
                     📱 JazzCash / EasyPaisa
                   </p>
-                  <p className="text-[10px] text-[#AFB8B0]">
+                  <p className="text-[10px] text-[#C19A6B]">
                     Rider shows QR or send to 0300-XXXXXXX
                   </p>
                 </div>
@@ -309,8 +309,8 @@ export default function CheckoutModal({
               <label
                 className={`p-3.5 rounded-2xl border flex items-center gap-3 cursor-pointer transition-all ${
                   formData.paymentMethod === "card_on_delivery"
-                    ? "bg-[#303A2B] border-[#718C56] shadow-sm"
-                    : "bg-[#252B28] border-[#E4E8E5]/15 hover:border-[#718C56]/40"
+                    ? "bg-[#3B3020] border-[#D4A017] shadow-sm"
+                    : "bg-[#2A211B] border-[#F5EBDD]/15 hover:border-[#D4A017]/40"
                 }`}
               >
                 <input
@@ -319,21 +319,21 @@ export default function CheckoutModal({
                   value="card_on_delivery"
                   checked={formData.paymentMethod === "card_on_delivery"}
                   onChange={handleChange}
-                  className="w-4 h-4 text-[#718C56] focus:ring-[#718C56] accent-[#718C56]"
+                  className="w-4 h-4 text-[#D4A017] focus:ring-[#D4A017] accent-[#D4A017]"
                 />
                 <div>
-                  <p className="text-xs font-bold text-[#E4E8E5] flex items-center gap-1.5">
+                  <p className="text-xs font-bold text-[#F5EBDD] flex items-center gap-1.5">
                     💳 Card Machine on Delivery
                   </p>
-                  <p className="text-[10px] text-[#AFB8B0]">Swipe your Visa/Mastercard</p>
+                  <p className="text-[10px] text-[#C19A6B]">Swipe your Visa/Mastercard</p>
                 </div>
               </label>
 
               <label
                 className={`p-3.5 rounded-2xl border flex items-center gap-3 cursor-pointer transition-all ${
                   formData.paymentMethod === "online_card"
-                    ? "bg-[#303A2B] border-[#718C56] shadow-sm"
-                    : "bg-[#252B28] border-[#E4E8E5]/15 hover:border-[#718C56]/40"
+                    ? "bg-[#3B3020] border-[#D4A017] shadow-sm"
+                    : "bg-[#2A211B] border-[#F5EBDD]/15 hover:border-[#D4A017]/40"
                 }`}
               >
                 <input
@@ -342,44 +342,44 @@ export default function CheckoutModal({
                   value="online_card"
                   checked={formData.paymentMethod === "online_card"}
                   onChange={handleChange}
-                  className="w-4 h-4 text-[#718C56] focus:ring-[#718C56] accent-[#718C56]"
+                  className="w-4 h-4 text-[#D4A017] focus:ring-[#D4A017] accent-[#D4A017]"
                 />
                 <div>
-                  <p className="text-xs font-bold text-[#E4E8E5] flex items-center gap-1.5">
+                  <p className="text-xs font-bold text-[#F5EBDD] flex items-center gap-1.5">
                     🔒 Pay Online (Instant)
                   </p>
-                  <p className="text-[10px] text-[#AFB8B0]">Credit / Debit card online</p>
+                  <p className="text-[10px] text-[#C19A6B]">Credit / Debit card online</p>
                 </div>
               </label>
             </div>
           </div>
 
           {/* Section 4: Bill Review */}
-          <div className="p-4 rounded-2xl bg-[#252B28] border border-[#E4E8E5]/10 space-y-2 text-xs">
-            <div className="flex justify-between text-[#AFB8B0]">
+          <div className="p-4 rounded-2xl bg-[#2A211B] border border-[#F5EBDD]/10 space-y-2 text-xs">
+            <div className="flex justify-between text-[#C19A6B]">
               <span>Items Total ({cartItems.reduce((s, i) => s + i.qty, 0)} items)</span>
-              <span className="font-semibold text-[#E4E8E5]">
+              <span className="font-semibold text-[#F5EBDD]">
                 Rs. {billSummary.subtotal?.toLocaleString() || 0}
               </span>
             </div>
 
             {billSummary.discountAmount > 0 && (
-              <div className="flex justify-between text-[#718C56] font-semibold">
+              <div className="flex justify-between text-[#D4A017] font-semibold">
                 <span>Coupon Discount</span>
                 <span>- Rs. {billSummary.discountAmount?.toLocaleString()}</span>
               </div>
             )}
 
-            <div className="flex justify-between text-[#AFB8B0]">
+            <div className="flex justify-between text-[#C19A6B]">
               <span>Delivery Charges</span>
-              <span className="font-semibold text-[#E4E8E5]">
+              <span className="font-semibold text-[#F5EBDD]">
                 {billSummary.deliveryFee === 0 ? "FREE" : `Rs. ${billSummary.deliveryFee}`}
               </span>
             </div>
 
-            <div className="flex justify-between text-base font-extrabold text-[#E4E8E5] pt-2 border-t border-[#E4E8E5]/10">
+            <div className="flex justify-between text-base font-extrabold text-[#F5EBDD] pt-2 border-t border-[#F5EBDD]/10">
               <span className="font-display">Total Amount Payable</span>
-              <span className="font-display text-[#718C56] text-xl">
+              <span className="font-display text-[#D4A017] text-xl">
                 Rs. {billSummary.grandTotal?.toLocaleString() || 0}
               </span>
             </div>
@@ -395,7 +395,7 @@ export default function CheckoutModal({
             <button
               type="button"
               onClick={onClose}
-              className="w-1/3 py-3 rounded-2xl border border-[#E4E8E5]/20 font-bold text-xs sm:text-sm hover:bg-[#252B28] transition-colors text-[#E4E8E5]"
+              className="w-1/3 py-3 rounded-2xl border border-[#F5EBDD]/20 font-bold text-xs sm:text-sm hover:bg-[#2A211B] transition-colors text-[#F5EBDD]"
             >
               Back to Cart
             </button>
@@ -403,7 +403,7 @@ export default function CheckoutModal({
             <button
               type="submit"
               disabled={submitting}
-              className="w-2/3 bg-[#718C56] hover:bg-[#607A46] text-white font-extrabold py-3.5 rounded-2xl shadow-xl shadow-[#718C56]/30 active:scale-95 transition-all flex items-center justify-center gap-2 text-xs sm:text-sm disabled:opacity-50"
+              className="w-2/3 bg-[#D4A017] hover:bg-[#B98B12] text-white font-extrabold py-3.5 rounded-2xl shadow-xl shadow-[#D4A017]/30 active:scale-95 transition-all flex items-center justify-center gap-2 text-xs sm:text-sm disabled:opacity-50"
             >
               {submitting ? (
                 <span>Placing Order...</span>

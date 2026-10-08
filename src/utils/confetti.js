@@ -16,7 +16,7 @@ export function fireConfetti() {
   const width = (canvas.width = window.innerWidth);
   const height = (canvas.height = window.innerHeight);
 
-  const colors = ["#718C56", "#C5E879", "#718C56", "#C5E879", "#718C56", "#718C56", "#C5E879"];
+  const colors = ["#D4A017", "#C19A6B", "#D4A017", "#C19A6B", "#D4A017", "#D4A017", "#C19A6B"];
   const pieces = [];
   const count = 120;
 

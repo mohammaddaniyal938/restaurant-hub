@@ -463,15 +463,15 @@ export default function App() {
   // ==========================================
   if (loading && products.length === 0) {
     return (
-      <div className="min-h-screen bg-[#171B19] flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#171513] flex items-center justify-center p-4">
         <div className="text-center animate-fade-in">
-          <div className="w-20 h-20 rounded-3xl bg-[#718C56] text-white flex items-center justify-center text-4xl mx-auto mb-4 shadow-xl shadow-[#718C56]/30 animate-bounce">
+          <div className="w-20 h-20 rounded-3xl bg-[#D4A017] text-white flex items-center justify-center text-4xl mx-auto mb-4 shadow-xl shadow-[#D4A017]/30 animate-bounce">
             🍔
           </div>
-          <h2 className="font-display font-extrabold text-2xl text-[#E4E8E5]">
-            Karachi<span className="text-[#718C56]">Bites</span>
+          <h2 className="font-display font-extrabold text-2xl text-[#F5EBDD]">
+            Karachi<span className="text-[#D4A017]">Bites</span>
           </h2>
-          <p className="text-xs text-[#AFB8B0] mt-2 font-medium">
+          <p className="text-xs text-[#C19A6B] mt-2 font-medium">
             Fetching fresh menu from Supabase...
           </p>
         </div>
@@ -488,7 +488,7 @@ export default function App() {
   // STOREFRONT APPLICATION LAYOUT
   // ==========================================
   return (
-    <div className="min-h-screen bg-[#171B19] text-[#E4E8E5] flex flex-col antialiased selection:bg-[#718C56] selection:text-white pb-16 lg:pb-0">
+    <div className="min-h-screen bg-[#171513] text-[#F5EBDD] flex flex-col antialiased selection:bg-[#D4A017] selection:text-white pb-16 lg:pb-0">
       {/* 1. TOAST NOTIFICATIONS */}
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
 
@@ -573,17 +573,17 @@ export default function App() {
       )}
 
       {/* 5. FOOTER */}
-      <footer className="bg-[#171B19] text-white border-t border-white/10 mt-16 pt-12 pb-16 lg:pb-12">
+      <footer className="bg-[#171513] text-white border-t border-white/10 mt-16 pt-12 pb-16 lg:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-white/10">
             {/* Brand column */}
             <div className="space-y-3 md:col-span-1">
               <div className="flex items-center gap-2">
-                <span className="w-9 h-9 rounded-xl bg-[#718C56] flex items-center justify-center text-lg">
+                <span className="w-9 h-9 rounded-xl bg-[#D4A017] flex items-center justify-center text-lg">
                   🍔
                 </span>
                 <span className="font-display font-extrabold text-xl tracking-tight text-white">
-                  Karachi<span className="text-[#718C56]">Bites</span>
+                  Karachi<span className="text-[#D4A017]">Bites</span>
                 </span>
               </div>
               <p className="text-xs text-white/60 leading-relaxed font-normal">
@@ -594,7 +594,7 @@ export default function App() {
 
             {/* Quick Links */}
             <div>
-              <h4 className="font-display font-bold text-sm text-white mb-3 uppercase tracking-wider text-[#C5E879]">
+              <h4 className="font-display font-bold text-sm text-white mb-3 uppercase tracking-wider text-[#C19A6B]">
                 Menu Highlights
               </h4>
               <ul className="space-y-2 text-xs text-white/70">
@@ -647,7 +647,7 @@ export default function App() {
 
             {/* Delivery Areas */}
             <div>
-              <h4 className="font-display font-bold text-sm text-white mb-3 uppercase tracking-wider text-[#C5E879]">
+              <h4 className="font-display font-bold text-sm text-white mb-3 uppercase tracking-wider text-[#C19A6B]">
                 Express Delivery Zones
               </h4>
               <ul className="space-y-1.5 text-xs text-white/70">
@@ -660,7 +660,7 @@ export default function App() {
 
             {/* Contact & Hours */}
             <div>
-              <h4 className="font-display font-bold text-sm text-white mb-3 uppercase tracking-wider text-[#C5E879]">
+              <h4 className="font-display font-bold text-sm text-white mb-3 uppercase tracking-wider text-[#C19A6B]">
                 Karachi Hotline & Admin
               </h4>
               <p className="text-xs text-white/70 mb-1">

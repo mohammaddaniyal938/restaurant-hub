@@ -93,18 +93,18 @@ function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#171B19] flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-md rounded-[28px] border border-[#3D4540] bg-[#252B28] p-6 shadow-[0_30px_80px_rgba(28,23,21,0.08)] sm:p-8">
+    <div className="min-h-screen bg-[#171513] flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-md rounded-[28px] border border-[#4A3A2B] bg-[#2A211B] p-6 shadow-[0_30px_80px_rgba(28,23,21,0.08)] sm:p-8">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#718C56] text-2xl shadow-lg shadow-[#718C56]/25">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#D4A017] text-2xl shadow-lg shadow-[#D4A017]/25">
               🏪
             </div>
             <div>
-              <p className="font-display text-2xl font-extrabold text-[#E4E8E5]">
-                Karachi<span className="text-[#718C56]">Bites</span>
+              <p className="font-display text-2xl font-extrabold text-[#F5EBDD]">
+                Karachi<span className="text-[#D4A017]">Bites</span>
               </p>
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#718C56]">
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#D4A017]">
                 Admin Access
               </p>
             </div>
@@ -112,16 +112,16 @@ function AdminLoginPage() {
 
           <div className="flex items-center gap-3">
             <ThemeToggle />
-            <Link to="/" className="text-xs font-bold text-[#AFB8B0] hover:text-[#E4E8E5]">
+            <Link to="/" className="text-xs font-bold text-[#C19A6B] hover:text-[#F5EBDD]">
               Storefront
             </Link>
           </div>
         </div>
 
-        <h1 className="mt-6 font-display text-3xl font-extrabold text-[#E4E8E5]">
+        <h1 className="mt-6 font-display text-3xl font-extrabold text-[#F5EBDD]">
           Admin Login
         </h1>
-        <p className="mt-2 text-sm text-[#AFB8B0]">
+        <p className="mt-2 text-sm text-[#C19A6B]">
           Sign in with the authorized administrator account to manage orders, menu, and kitchen ops.
         </p>
 
@@ -139,7 +139,7 @@ function AdminLoginPage() {
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
-            <label htmlFor="admin-email" className="mb-1 block text-xs font-bold uppercase tracking-[0.18em] text-[#AFB8B0]">
+            <label htmlFor="admin-email" className="mb-1 block text-xs font-bold uppercase tracking-[0.18em] text-[#C19A6B]">
               Admin Email
             </label>
             <input
@@ -148,13 +148,13 @@ function AdminLoginPage() {
               autoComplete="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              className="w-full rounded-xl border border-[#3D4540] bg-[#171B19] px-4 py-3 text-sm text-[#E4E8E5] outline-none transition focus:border-[#718C56]"
+              className="w-full rounded-xl border border-[#4A3A2B] bg-[#171513] px-4 py-3 text-sm text-[#F5EBDD] outline-none transition focus:border-[#D4A017]"
               placeholder="admin@karachibites.com"
             />
           </div>
 
           <div>
-            <label htmlFor="admin-password" className="mb-1 block text-xs font-bold uppercase tracking-[0.18em] text-[#AFB8B0]">
+            <label htmlFor="admin-password" className="mb-1 block text-xs font-bold uppercase tracking-[0.18em] text-[#C19A6B]">
               Password
             </label>
             <input
@@ -163,7 +163,7 @@ function AdminLoginPage() {
               autoComplete="current-password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="w-full rounded-xl border border-[#3D4540] bg-[#171B19] px-4 py-3 text-sm text-[#E4E8E5] outline-none transition focus:border-[#718C56]"
+              className="w-full rounded-xl border border-[#4A3A2B] bg-[#171513] px-4 py-3 text-sm text-[#F5EBDD] outline-none transition focus:border-[#D4A017]"
               placeholder="Enter your password"
             />
           </div>
@@ -171,7 +171,7 @@ function AdminLoginPage() {
           <button
             type="submit"
             disabled={busy}
-            className="w-full rounded-xl bg-[#718C56] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#607A46] disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full rounded-xl bg-[#D4A017] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#B98B12] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {busy ? "Signing in..." : "Access Dashboard"}
           </button>

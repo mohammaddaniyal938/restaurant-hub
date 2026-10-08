@@ -111,16 +111,16 @@ CREATE POLICY "Public Insert Reviews" ON public.reviews FOR INSERT WITH CHECK (t
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Top Card */}
-      <div className="bg-[#252B28] p-6 rounded-3xl border border-[#E4E8E5]/10 shadow-sm">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-[#E4E8E5]/10">
+      <div className="bg-[#2A211B] p-6 rounded-3xl border border-[#F5EBDD]/10 shadow-sm">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-[#F5EBDD]/10">
           <div>
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-emerald-500 animate-ping" />
-              <h2 className="font-display font-extrabold text-xl text-[#E4E8E5]">
+              <h2 className="font-display font-extrabold text-xl text-[#F5EBDD]">
                 Supabase Backend & Database Sync
               </h2>
             </div>
-            <p className="text-xs text-[#AFB8B0] mt-0.5">
+            <p className="text-xs text-[#C19A6B] mt-0.5">
               Live database connectivity status and 1-click catalog deployment
             </p>
           </div>
@@ -128,7 +128,7 @@ CREATE POLICY "Public Insert Reviews" ON public.reviews FOR INSERT WITH CHECK (t
           <button
             onClick={handleSeed}
             disabled={seeding}
-            className="bg-[#718C56] hover:bg-[#607A46] text-white text-xs sm:text-sm font-extrabold px-5 py-3 rounded-2xl shadow-lg shadow-[#718C56]/30 flex items-center gap-2 transition-all active:scale-95 disabled:opacity-50"
+            className="bg-[#D4A017] hover:bg-[#B98B12] text-white text-xs sm:text-sm font-extrabold px-5 py-3 rounded-2xl shadow-lg shadow-[#D4A017]/30 flex items-center gap-2 transition-all active:scale-95 disabled:opacity-50"
           >
             {seeding ? (
               <span>Seeding Menu to Supabase...</span>
@@ -142,35 +142,35 @@ CREATE POLICY "Public Insert Reviews" ON public.reviews FOR INSERT WITH CHECK (t
 
         {/* Status badges */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
-          <div className="p-4 rounded-2xl bg-[#252B28] flex items-center gap-3">
+          <div className="p-4 rounded-2xl bg-[#2A211B] flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg">
               ✓
             </div>
             <div>
-              <p className="text-[10px] text-[#AFB8B0] uppercase font-bold">Supabase Client</p>
-              <p className="text-xs font-extrabold text-[#E4E8E5]">
+              <p className="text-[10px] text-[#C19A6B] uppercase font-bold">Supabase Client</p>
+              <p className="text-xs font-extrabold text-[#F5EBDD]">
                 {isClientReady ? "Connected & Active" : "Offline Fallback Mode"}
               </p>
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#252B28] flex items-center gap-3">
+          <div className="p-4 rounded-2xl bg-[#2A211B] flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-lg">
               ⚡
             </div>
             <div>
-              <p className="text-[10px] text-[#AFB8B0] uppercase font-bold">Real-time Orders</p>
-              <p className="text-xs font-extrabold text-[#E4E8E5]">PostgreSQL Channel Sync</p>
+              <p className="text-[10px] text-[#C19A6B] uppercase font-bold">Real-time Orders</p>
+              <p className="text-xs font-extrabold text-[#F5EBDD]">PostgreSQL Channel Sync</p>
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#252B28] flex items-center gap-3">
+          <div className="p-4 rounded-2xl bg-[#2A211B] flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-lg">
               🛡️
             </div>
             <div>
-              <p className="text-[10px] text-[#AFB8B0] uppercase font-bold">Data Resilience</p>
-              <p className="text-xs font-extrabold text-[#E4E8E5]">Dual Cloud + Local Storage</p>
+              <p className="text-[10px] text-[#C19A6B] uppercase font-bold">Data Resilience</p>
+              <p className="text-xs font-extrabold text-[#F5EBDD]">Dual Cloud + Local Storage</p>
             </div>
           </div>
         </div>
@@ -181,11 +181,11 @@ CREATE POLICY "Public Insert Reviews" ON public.reviews FOR INSERT WITH CHECK (t
       </div>
 
       {/* SQL Migration Script Box */}
-      <div className="bg-[#171B19] text-white p-6 rounded-3xl shadow-xl space-y-4">
+      <div className="bg-[#171513] text-white p-6 rounded-3xl shadow-xl space-y-4">
         <div className="flex items-center justify-between">
           <div>
             <h3 className="font-display font-bold text-base text-white flex items-center gap-2">
-              <IconShieldCheck className="w-5 h-5 text-[#718C56]" /> Supabase SQL Schema (Copy &
+              <IconShieldCheck className="w-5 h-5 text-[#D4A017]" /> Supabase SQL Schema (Copy &
               Run)
             </h3>
             <p className="text-xs text-white/60">
@@ -207,7 +207,7 @@ CREATE POLICY "Public Insert Reviews" ON public.reviews FOR INSERT WITH CHECK (t
           </button>
         </div>
 
-        <pre className="p-4 rounded-2xl bg-[#252B28] text-emerald-400 text-xs font-mono overflow-x-auto scroll-thin max-h-80 border border-white/10">
+        <pre className="p-4 rounded-2xl bg-[#2A211B] text-emerald-400 text-xs font-mono overflow-x-auto scroll-thin max-h-80 border border-white/10">
           {sqlSchema}
         </pre>
       </div>

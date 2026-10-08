@@ -55,9 +55,9 @@ export default function AdminDashboard({
   ];
 
   return (
-    <div className="min-h-screen bg-[#252B28] text-[#E4E8E5] flex flex-col antialiased">
+    <div className="min-h-screen bg-[#2A211B] text-[#F5EBDD] flex flex-col antialiased">
       {/* TOP ADMIN HEADER */}
-      <header className="sticky top-0 z-40 bg-[#171B19] border-b border-white/10 text-white shadow-lg">
+      <header className="sticky top-0 z-40 bg-[#171513] border-b border-white/10 text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             {/* Mobile menu toggle */}
@@ -70,14 +70,14 @@ export default function AdminDashboard({
 
             {/* Admin Logo */}
             <div className="flex items-center gap-2.5">
-              <span className="w-9 h-9 rounded-xl bg-[#718C56] flex items-center justify-center text-lg shadow">
+              <span className="w-9 h-9 rounded-xl bg-[#D4A017] flex items-center justify-center text-lg shadow">
                 🏪
               </span>
               <div>
                 <span className="font-display font-extrabold text-lg text-white leading-none block">
-                  Karachi<span className="text-[#718C56]">Bites</span>
+                  Karachi<span className="text-[#D4A017]">Bites</span>
                 </span>
-                <span className="text-[10px] text-[#C5E879] uppercase font-bold tracking-wider">
+                <span className="text-[10px] text-[#C19A6B] uppercase font-bold tracking-wider">
                   Admin Kitchen Dashboard
                 </span>
               </div>
@@ -93,7 +93,7 @@ export default function AdminDashboard({
                 setActiveTab("menu");
                 setIsAddDishOpen(true);
               }}
-              className="hidden sm:flex bg-[#718C56] hover:bg-[#607A46] text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-sm items-center gap-1.5 transition-all"
+              className="hidden sm:flex bg-[#D4A017] hover:bg-[#B98B12] text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-sm items-center gap-1.5 transition-all"
             >
               <IconPlus className="w-3.5 h-3.5" />
               <span>New Dish</span>
@@ -132,20 +132,20 @@ export default function AdminDashboard({
           className={`
             fixed lg:sticky top-0 lg:top-[68px] left-0 z-50 lg:z-0
             h-screen lg:h-[calc(100vh-100px)] w-72 shrink-0
-            bg-[#252B28] border border-[#E4E8E5]/10 rounded-3xl p-5 shadow-xl lg:shadow-sm
+            bg-[#2A211B] border border-[#F5EBDD]/10 rounded-3xl p-5 shadow-xl lg:shadow-sm
             transition-transform duration-300
             ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0
             flex flex-col justify-between overflow-y-auto scroll-thin
           `}
         >
           <div className="space-y-1.5">
-            <div className="flex items-center justify-between pb-3 border-b border-[#E4E8E5]/10 mb-3">
-              <span className="text-xs font-extrabold text-[#AFB8B0] uppercase tracking-wider">
+            <div className="flex items-center justify-between pb-3 border-b border-[#F5EBDD]/10 mb-3">
+              <span className="text-xs font-extrabold text-[#C19A6B] uppercase tracking-wider">
                 Admin Navigation
               </span>
               <button
                 onClick={() => setSidebarOpen(false)}
-                className="lg:hidden w-6 h-6 text-gray-500 hover:text-[#E4E8E5] text-sm"
+                className="lg:hidden w-6 h-6 text-gray-500 hover:text-[#F5EBDD] text-sm"
               >
                 ✕
               </button>
@@ -162,19 +162,19 @@ export default function AdminDashboard({
                   }}
                   className={`w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-xs font-bold transition-all ${
                     isActive
-                      ? "bg-[#171B19] text-white shadow-md shadow-black/10 font-extrabold"
-                      : "bg-transparent text-[#E4E8E5]/80 hover:bg-[#252B28] hover:text-[#E4E8E5]"
+                      ? "bg-[#171513] text-white shadow-md shadow-black/10 font-extrabold"
+                      : "bg-transparent text-[#F5EBDD]/80 hover:bg-[#2A211B] hover:text-[#F5EBDD]"
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <span className={isActive ? "text-[#718C56]" : "text-[#AFB8B0]"}>
+                    <span className={isActive ? "text-[#D4A017]" : "text-[#C19A6B]"}>
                       {item.icon}
                     </span>
                     <span>{item.label}</span>
                   </div>
 
                   {item.badge ? (
-                    <span className="bg-[#718C56] text-white text-[10px] font-black px-2 py-0.5 rounded-full animate-pulse">
+                    <span className="bg-[#D4A017] text-white text-[10px] font-black px-2 py-0.5 rounded-full animate-pulse">
                       {item.badge}
                     </span>
                   ) : item.count !== undefined ? (
@@ -188,15 +188,15 @@ export default function AdminDashboard({
           </div>
 
           {/* Sidebar bottom status info */}
-          <div className="pt-4 border-t border-[#E4E8E5]/10 space-y-2 mt-6">
-            <div className="p-3 rounded-2xl bg-[#303A2B] text-xs">
-              <p className="font-extrabold text-[#718C56]">Karachi Central Kitchen</p>
-              <p className="text-[11px] text-[#AFB8B0] mt-0.5">Clifton Branch • 100% Halal</p>
+          <div className="pt-4 border-t border-[#F5EBDD]/10 space-y-2 mt-6">
+            <div className="p-3 rounded-2xl bg-[#3B3020] text-xs">
+              <p className="font-extrabold text-[#D4A017]">Karachi Central Kitchen</p>
+              <p className="text-[11px] text-[#C19A6B] mt-0.5">Clifton Branch • 100% Halal</p>
             </div>
 
             <button
               onClick={onReturnToStore}
-              className="w-full py-2.5 bg-[#252B28] hover:bg-[#171B19] hover:text-white text-[#E4E8E5] font-bold text-xs rounded-xl transition-colors flex items-center justify-center gap-1.5"
+              className="w-full py-2.5 bg-[#2A211B] hover:bg-[#171513] hover:text-white text-[#F5EBDD] font-bold text-xs rounded-xl transition-colors flex items-center justify-center gap-1.5"
             >
               <IconArrowLeft className="w-3.5 h-3.5" />
               <span>Customer Storefront</span>

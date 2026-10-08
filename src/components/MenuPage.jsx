@@ -36,13 +36,13 @@ export default function MenuPage({
   return (
     <main id="menu-section" className="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-8 py-8 flex-1">
       <div className="mb-7 max-w-2xl">
-        <p className="text-xs font-black uppercase tracking-[0.2em] text-[#718C56]">
+        <p className="text-xs font-black uppercase tracking-[0.2em] text-[#D4A017]">
           The full spread
         </p>
-        <h1 className="font-display font-extrabold text-3xl sm:text-4xl text-[#E4E8E5] mt-2">
+        <h1 className="font-display font-extrabold text-3xl sm:text-4xl text-[#F5EBDD] mt-2">
           Choose your craving
         </h1>
-        <p className="text-sm text-[#AFB8B0] mt-2">
+        <p className="text-sm text-[#C19A6B] mt-2">
           Freshly made burgers, shawarmas, pizzas, sides, drinks, and value deals.
         </p>
       </div>
@@ -70,12 +70,12 @@ export default function MenuPage({
         />
 
         <section className="flex-1 min-w-0" aria-label="Food menu">
-          <div className="bg-[#252B28] p-4 rounded-2xl border border-[#E4E8E5]/10 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div className="bg-[#2A211B] p-4 rounded-2xl border border-[#F5EBDD]/10 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div className="flex items-center gap-2">
-              <span className="font-display font-extrabold text-lg text-[#E4E8E5]">
+              <span className="font-display font-extrabold text-lg text-[#F5EBDD]">
                 {category === "All" ? "All Dishes" : category}
               </span>
-              <span className="text-xs text-[#AFB8B0] font-semibold bg-[#252B28] px-2.5 py-1 rounded-full">
+              <span className="text-xs text-[#C19A6B] font-semibold bg-[#2A211B] px-2.5 py-1 rounded-full">
                 {filteredProducts.length} {filteredProducts.length === 1 ? "dish" : "dishes"}
               </span>
             </div>
@@ -83,7 +83,7 @@ export default function MenuPage({
               <select
                 value={sortBy}
                 onChange={(event) => setSortBy(event.target.value)}
-                className="bg-[#252B28] hover:bg-[#343C37] border border-[#E4E8E5]/10 text-[#E4E8E5] text-xs font-bold rounded-xl px-3.5 py-2 focus:outline-none focus:ring-2 focus:ring-[#718C56] cursor-pointer"
+                className="bg-[#2A211B] hover:bg-[#3A3028] border border-[#F5EBDD]/10 text-[#F5EBDD] text-xs font-bold rounded-xl px-3.5 py-2 focus:outline-none focus:ring-2 focus:ring-[#D4A017] cursor-pointer"
                 aria-label="Sort menu"
               >
                 <option value="featured">Sort: Featured</option>
@@ -92,10 +92,10 @@ export default function MenuPage({
                 <option value="price-desc">Price: High to Low</option>
                 <option value="rating-desc">Highest Rated</option>
               </select>
-              <div className="hidden sm:flex items-center bg-[#252B28] p-1 rounded-xl border border-[#E4E8E5]/10">
+              <div className="hidden sm:flex items-center bg-[#2A211B] p-1 rounded-xl border border-[#F5EBDD]/10">
                 <button
                   onClick={() => setViewMode("grid")}
-                  className={`p-1.5 rounded-lg ${viewMode === "grid" ? "bg-[#252B28] text-[#718C56] shadow-sm" : "text-[#AFB8B0]"}`}
+                  className={`p-1.5 rounded-lg ${viewMode === "grid" ? "bg-[#2A211B] text-[#D4A017] shadow-sm" : "text-[#C19A6B]"}`}
                   title="Grid View"
                   aria-label="Grid View"
                 >
@@ -103,7 +103,7 @@ export default function MenuPage({
                 </button>
                 <button
                   onClick={() => setViewMode("list")}
-                  className={`p-1.5 rounded-lg ${viewMode === "list" ? "bg-[#252B28] text-[#718C56] shadow-sm" : "text-[#AFB8B0]"}`}
+                  className={`p-1.5 rounded-lg ${viewMode === "list" ? "bg-[#2A211B] text-[#D4A017] shadow-sm" : "text-[#C19A6B]"}`}
                   title="List View"
                   aria-label="List View"
                 >
