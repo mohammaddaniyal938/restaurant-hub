@@ -1,55 +1,38 @@
-import { createClient } from "@supabase/supabase-js";
-import type { Database } from "@/integrations/supabase/types";
+/**
+ * Server-side API helpers proxying to the Express REST API backend.
+ */
 
-/** Publishable-key client for public, read-only Data API access from the server. */
-export function createPublicClient() {
-  const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
-  const url = process.env["SUPABASE_URL"]!;
+const BACKEND_URL =
+  process.env["VITE_API_URL"] || process.env["API_URL"] || "http://localhost:5000/api";
 
-  return createClient<Database>(url, key, {
-    auth: { persistSession: false, autoRefreshToken: false },
-    global: {
-      fetch: (input, init) => {
-        const headers = new Headers(init?.headers);
-        if (key.startsWith("sb_") && headers.get("Authorization") === `Bearer ${key}`) {
-          headers.delete("Authorization");
-        }
-        headers.set("apikey", key);
-        return fetch(input as RequestInfo, { ...init, headers });
-      },
-    },
-  });
+export async function backendFetch(endpoint: string, options: RequestInit = {}) {
+  const url = endpoint.startsWith("http")
+    ? endpoint
+    : `${BACKEND_URL.replace(/\/+$/, "")}${endpoint.startsWith("/") ? "" : "/"}${endpoint}`;
+  return fetch(url, options);
 }
 
-/** Validates the request bearer token and returns a user-scoped client. */
+/** Validates the request bearer token with the backend */
 export async function authenticateRequest(request: Request) {
-  const token = request.headers.get("authorization")?.replace(/^Bearer\s+/i, "");
-  if (!token) return { user: null, supabase: null } as const;
+  const authHeader = request.headers.get("authorization");
+  if (!authHeader) return { user: null } as const;
 
-  const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
-  const url = process.env["SUPABASE_URL"]!;
-
-  const supabase = createClient<Database>(url, key, {
-    auth: { persistSession: false, autoRefreshToken: false },
-    global: {
-      fetch: (input, init) => {
-        const headers = new Headers(init?.headers);
-        headers.set("apikey", key);
-        headers.set("Authorization", `Bearer ${token}`);
-        return fetch(input as RequestInfo, { ...init, headers });
-      },
-    },
-  });
-
-  const { data, error } = await supabase.auth.getUser(token);
-  if (error || !data.user) return { user: null, supabase: null } as const;
-  return { user: data.user, supabase } as const;
+  try {
+    const res = await backendFetch("/users/me", {
+      headers: { Authorization: authHeader },
+    });
+    if (!res.ok) return { user: null } as const;
+    const json = await res.json();
+    return { user: json?.data?.user || null } as const;
+  } catch {
+    return { user: null } as const;
+  }
 }
 
 export const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, content-type",
-  "Access-Control-Allow-Methods": "GET, POST, PATCH, OPTIONS",
+  "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
 };
 
 export function json(body: unknown, status = 200) {

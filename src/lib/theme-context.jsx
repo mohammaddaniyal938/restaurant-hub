@@ -17,7 +17,10 @@ export function ThemeProvider({ children }) {
 
   useEffect(() => {
     const syncTheme = (event) => {
-      if (event.key === THEME_STORAGE_KEY && (event.newValue === "light" || event.newValue === "dark")) {
+      if (
+        event.key === THEME_STORAGE_KEY &&
+        (event.newValue === "light" || event.newValue === "dark")
+      ) {
         setTheme(event.newValue);
       }
     };

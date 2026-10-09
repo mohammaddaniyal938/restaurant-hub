@@ -51,7 +51,7 @@ export default function AdminDashboard({
       count: products.length,
     },
     { id: "reviews", label: "Customer Reviews", icon: <IconStar className="w-4 h-4" /> },
-    { id: "database", label: "Supabase & Database", icon: <IconShieldCheck className="w-4 h-4" /> },
+    { id: "database", label: "Backend & Database", icon: <IconShieldCheck className="w-4 h-4" /> },
   ];
 
   return (

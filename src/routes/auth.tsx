@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 // @ts-expect-error -- JSX auth provider
 import { AuthProvider, useAuth } from "@/lib/auth-context.jsx";
 
-type AuthSearch = { redirect?: string | undefined };
+type AuthSearch = {
+  redirect?: string | undefined;
+  error?: string | undefined;
+  error_description?: string | undefined;
+};
 type AuthError = { message: string } | null;
 type AuthState = {
   loading: boolean;
@@ -14,15 +18,21 @@ type AuthState = {
     password: string,
     fullName: string,
     phone: string,
+    redirectTo: string,
   ) => Promise<{ error: AuthError; needsConfirmation: boolean }>;
   signInWithPassword: (email: string, password: string) => Promise<{ error: AuthError }>;
-  signInWithGoogle: () => Promise<{ error: AuthError; redirected: boolean }>;
+  signInWithGoogle: (redirectTo: string) => Promise<{ error: AuthError; redirected: boolean }>;
 };
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
   validateSearch: (search: Record<string, unknown>): AuthSearch => ({
     redirect: typeof search["redirect"] === "string" ? (search["redirect"] as string) : undefined,
+    error: typeof search["error"] === "string" ? (search["error"] as string) : undefined,
+    error_description:
+      typeof search["error_description"] === "string"
+        ? (search["error_description"] as string)
+        : undefined,
   }),
   head: () => ({
     meta: [
@@ -62,10 +72,16 @@ function AuthPage() {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ kind: "error" | "info"; text: string } | null>(null);
 
-  const safeRedirect =
-    search.redirect && search.redirect.startsWith("/") && !search.redirect.startsWith("//")
-      ? search.redirect
-      : "/";
+  const safeRedirect = getSafeRedirect(search.redirect);
+
+  useEffect(() => {
+    if (search.error || search.error_description) {
+      setMessage({
+        kind: "error",
+        text: search.error_description || "Authentication was cancelled or could not be completed.",
+      });
+    }
+  }, [search.error, search.error_description]);
 
   useEffect(() => {
     if (!auth.loading && auth.user) {
@@ -78,60 +94,78 @@ function AuthPage() {
     setBusy(true);
     setMessage(null);
 
-    if (mode === "forgot") {
-      const { error } = await auth.resetPassword(email.trim());
-      setBusy(false);
-      setMessage(
-        error
-          ? { kind: "error", text: error.message }
-          : { kind: "info", text: "Password reset link sent. Check your inbox." },
-      );
-      return;
-    }
+    try {
+      if (mode === "forgot") {
+        const { error } = await auth.resetPassword(email.trim());
+        setMessage(
+          error
+            ? { kind: "error", text: error.message }
+            : { kind: "info", text: "Password reset link sent. Check your inbox." },
+        );
+        return;
+      }
 
-    if (!email.trim() || password.length < 6) {
+      if (!email.trim() || password.length < 6) {
+        setMessage({
+          kind: "error",
+          text: "Enter a valid email and a password of at least 6 characters.",
+        });
+        return;
+      }
+
+      if (mode === "signup") {
+        const { error, needsConfirmation } = await auth.signUpWithPassword(
+          email.trim(),
+          password,
+          fullName.trim(),
+          phone.trim(),
+          safeRedirect,
+        );
+        if (error) {
+          setMessage({ kind: "error", text: error.message });
+        } else if (needsConfirmation) {
+          setMessage({
+            kind: "info",
+            text: "Account created! Check your email and click the confirmation link to finish signing in.",
+          });
+        }
+        return;
+      }
+
+      const { error } = await auth.signInWithPassword(email.trim(), password);
       setBusy(false);
+      if (error) setMessage({ kind: "error", text: error.message });
+    } catch (error) {
       setMessage({
         kind: "error",
-        text: "Enter a valid email and a password of at least 6 characters.",
+        text: error instanceof Error ? error.message : "Authentication failed. Please try again.",
       });
-      return;
-    }
-
-    if (mode === "signup") {
-      const { error, needsConfirmation } = await auth.signUpWithPassword(
-        email.trim(),
-        password,
-        fullName.trim(),
-        phone.trim(),
-      );
+    } finally {
       setBusy(false);
-      if (error) {
-        setMessage({ kind: "error", text: error.message });
-      } else if (needsConfirmation) {
-        setMessage({
-          kind: "info",
-          text: "Account created! Check your email and click the confirmation link to finish signing in.",
-        });
-      }
-      return;
     }
-
-    const { error } = await auth.signInWithPassword(email.trim(), password);
-    setBusy(false);
-    if (error) setMessage({ kind: "error", text: error.message });
   };
 
   const handleGoogle = async () => {
     setBusy(true);
     setMessage(null);
-    const { error, redirected } = await auth.signInWithGoogle();
-    if (error) {
+    try {
+      const { error, redirected } = await auth.signInWithGoogle(safeRedirect);
+      if (error) {
+        setMessage({ kind: "error", text: error.message });
+      } else if (!redirected) {
+        setMessage({
+          kind: "error",
+          text: "Google sign-in could not be started. Please try again.",
+        });
+      }
+    } catch (error) {
+      setMessage({
+        kind: "error",
+        text: error instanceof Error ? error.message : "Google sign-in failed. Please try again.",
+      });
+    } finally {
       setBusy(false);
-      setMessage({ kind: "error", text: error.message });
-      return;
     }
-    if (!redirected) setBusy(false);
   };
 
   return (
@@ -282,4 +316,16 @@ function AuthPage() {
       </div>
     </div>
   );
+}
+
+function getSafeRedirect(path?: string) {
+  if (!path) return "/";
+  try {
+    const target = new URL(path, window.location.origin);
+    return target.origin === window.location.origin
+      ? `${target.pathname}${target.search}${target.hash}`
+      : "/";
+  } catch {
+    return "/";
+  }
 }

@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { api } from "@/services/api";
 
 export const Route = createFileRoute("/reset-password")({
   ssr: false,
@@ -22,6 +22,7 @@ export const Route = createFileRoute("/reset-password")({
 
 function ResetPassword() {
   const navigate = useNavigate();
+  const [currentPassword, setCurrentPassword] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -33,14 +34,17 @@ function ResetPassword() {
       return;
     }
     setBusy(true);
-    const { error } = await supabase.auth.updateUser({ password });
-    setBusy(false);
-    if (error) {
-      setMessage(error.message);
-      return;
+    try {
+      await api.auth.changePassword({ currentPassword, newPassword: password });
+      setMessage("Password updated successfully. Taking you to the menu…");
+      setTimeout(() => navigate({ to: "/", replace: true }), 1200);
+    } catch (error) {
+      setMessage(
+        error instanceof Error ? error.message : "Password update failed. Please try again.",
+      );
+    } finally {
+      setBusy(false);
     }
-    setMessage("Password updated. Taking you to the menu…");
-    setTimeout(() => navigate({ to: "/", replace: true }), 1200);
   };
 
   return (
@@ -49,9 +53,9 @@ function ResetPassword() {
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-cream border border-cream-dark rounded-3xl shadow-xl shadow-black/5 p-7"
       >
-        <h1 className="font-display font-extrabold text-2xl text-ink">Set a new password</h1>
+        <h1 className="font-display font-extrabold text-2xl text-ink">Change Password</h1>
         <p className="text-sm text-ink-muted mt-1">
-          Enter a new password for your KarachiBites account.
+          Enter your current and new password for your KarachiBites account.
         </p>
 
         {message && (
@@ -63,8 +67,19 @@ function ResetPassword() {
         <input
           type="password"
           required
-          autoComplete="new-password"
+          autoComplete="current-password"
           className="mt-5 w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#D4A017]"
+          placeholder="Current password"
+          value={currentPassword}
+          maxLength={72}
+          onChange={(e) => setCurrentPassword(e.target.value)}
+        />
+
+        <input
+          type="password"
+          required
+          autoComplete="new-password"
+          className="mt-3 w-full rounded-xl border border-cream-dark bg-cream-subtle px-4 py-3 text-sm text-ink outline-none focus:border-[#D4A017]"
           placeholder="New password"
           value={password}
           maxLength={72}
@@ -74,7 +89,7 @@ function ResetPassword() {
         <button
           type="submit"
           disabled={busy}
-          className="mt-3 w-full rounded-xl bg-chili hover:bg-chili-hover disabled:opacity-60 text-white font-bold text-sm py-3 transition-colors"
+          className="mt-4 w-full rounded-xl bg-chili hover:bg-chili-hover disabled:opacity-60 text-white font-bold text-sm py-3 transition-colors cursor-pointer"
         >
           {busy ? "Saving…" : "Update password"}
         </button>

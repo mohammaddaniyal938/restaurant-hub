@@ -151,7 +151,9 @@ export default function Header({
                 aria-label="Selected delivery area"
               >
                 <span className="text-[10px] text-white/50 leading-none">Deliver to</span>
-                <span className="font-semibold text-white truncate max-w-[120px]">{selectedArea}</span>
+                <span className="font-semibold text-white truncate max-w-[120px]">
+                  {selectedArea}
+                </span>
               </button>
             </div>
           )}

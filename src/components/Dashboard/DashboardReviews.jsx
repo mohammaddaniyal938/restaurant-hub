@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { supabaseService } from "../../services/supabaseService";
+import { apiService } from "../../services/apiService";
 import { IconStar, IconTrash, IconSearch, IconCheckCircle } from "../Icons";
 
 export default function DashboardReviews({ products = [], onShowToast }) {
@@ -10,7 +10,7 @@ export default function DashboardReviews({ products = [], onShowToast }) {
 
   const loadReviews = async () => {
     setLoading(true);
-    const data = await supabaseService.getReviews();
+    const data = await apiService.getReviews();
     setReviews(data || []);
     setLoading(false);
   };
@@ -22,7 +22,7 @@ export default function DashboardReviews({ products = [], onShowToast }) {
 
   const handleDeleteReview = async (id) => {
     if (window.confirm("Are you sure you want to remove this customer review?")) {
-      await supabaseService.deleteReview(id);
+      await apiService.deleteReview(id);
       setReviews((prev) => prev.filter((r) => String(r.id) !== String(id)));
       if (onShowToast) onShowToast("Review deleted");
     }

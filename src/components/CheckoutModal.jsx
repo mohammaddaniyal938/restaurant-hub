@@ -1,23 +1,6 @@
 import { useState } from "react";
 import { IconX, IconMapPin, IconUser, IconCreditCard } from "./Icons";
 
-const KARACHI_AREAS = [
-  "Clifton (Blocks 1-9)",
-  "Clifton, Karachi",
-  "DHA Phase 1-8",
-  "DHA Phase 5 & 6",
-  "Gulshan-e-Iqbal (Blocks 1-19)",
-  "Gulshan-e-Iqbal",
-  "PECHS Block 2, 3 & 6",
-  "PECHS Block 2 & 6",
-  "North Nazimabad",
-  "Bahadurabad & Dhoraji",
-  "Gulistan-e-Johar",
-  "Malir Cantt",
-  "Federal B Area",
-  "Tariq Road & PECHS",
-];
-
 export default function CheckoutModal({
   onClose,
   onConfirm,
@@ -29,7 +12,6 @@ export default function CheckoutModal({
     name: "",
     phone: "",
     email: "",
-    area: selectedArea || "Clifton (Blocks 1-9)",
     address: "",
     deliveryNotes: "",
     paymentMethod: "cod", // "cod" | "jazzcash" | "card_on_delivery" | "online_card"
@@ -74,6 +56,7 @@ export default function CheckoutModal({
     setTimeout(() => {
       const order = {
         ...formData,
+        area: selectedArea || "Karachi",
         orderId: `KB-${Math.floor(100000 + Math.random() * 900000)}`,
         items: cartItems,
         billSummary,
@@ -125,7 +108,10 @@ export default function CheckoutModal({
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-6 overflow-y-auto scroll-thin flex-1 space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          className="checkout-form-fields p-6 overflow-y-auto scroll-thin flex-1 space-y-6"
+        >
           {/* Section 1: Customer Details */}
           <div>
             <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#C19A6B] mb-3 flex items-center gap-1.5">
@@ -198,24 +184,6 @@ export default function CheckoutModal({
             </h3>
 
             <div className="space-y-3">
-              <div>
-                <label className="block text-xs font-semibold text-[#F5EBDD] mb-1">
-                  Karachi Town / Area *
-                </label>
-                <select
-                  name="area"
-                  value={formData.area}
-                  onChange={handleChange}
-                  className="w-full text-xs sm:text-sm p-3 rounded-xl bg-[#2A211B]/60 border border-[#F5EBDD]/15 focus:border-[#D4A017] focus:bg-[#2A211B] focus:outline-none"
-                >
-                  {KARACHI_AREAS.map((area) => (
-                    <option key={area} value={area}>
-                      {area}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
               <div>
                 <label className="block text-xs font-semibold text-[#F5EBDD] mb-1">
                   Complete Address (House #, Street, Block, Landmark) *

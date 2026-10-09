@@ -1,7 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AuthProvider, useAuth } from "@/lib/auth-context.jsx";
-import { supabase } from "@/integrations/supabase/client";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export const Route = createFileRoute("/admin-login")({
@@ -49,10 +48,7 @@ function AdminLoginPage() {
       return;
     }
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: trimmedEmail,
-      password,
-    });
+    const { error, data } = await auth.signInWithPassword(trimmedEmail, password);
 
     if (error) {
       setBusy(false);
@@ -63,27 +59,14 @@ function AdminLoginPage() {
       return;
     }
 
-    const userId = data.user?.id;
-    if (!userId) {
+    const user = data?.user || auth.user;
+    const role = user?.role;
+    if (role !== "admin" && role !== "restaurant_admin") {
+      await auth.signOut();
       setBusy(false);
       setMessage({
         kind: "error",
-        text: "The session could not be validated. Please try again.",
-      });
-      return;
-    }
-
-    const { data: roles, error: roleError } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", userId);
-
-    if (roleError || !roles?.some((row) => row.role === "admin")) {
-      await supabase.auth.signOut();
-      setBusy(false);
-      setMessage({
-        kind: "error",
-        text: "This account does not have administrator access.",
+        text: "This account does not have administrator access. Please sign in with an admin account (e.g. admin@karachibites.com).",
       });
       return;
     }
@@ -118,9 +101,7 @@ function AdminLoginPage() {
           </div>
         </div>
 
-        <h1 className="mt-6 font-display text-3xl font-extrabold text-[#F5EBDD]">
-          Admin Login
-        </h1>
+        <h1 className="mt-6 font-display text-3xl font-extrabold text-[#F5EBDD]">Admin Login</h1>
         <p className="mt-2 text-sm text-[#C19A6B]">
           Sign in with the authorized administrator account to manage orders, menu, and kitchen ops.
         </p>
@@ -129,8 +110,8 @@ function AdminLoginPage() {
           <div
             className={`mt-4 rounded-xl border px-3 py-2 text-sm font-medium ${
               message.kind === "error"
-                ? "border-red-200 bg-red-50 text-red-700"
-                : "border-green-200 bg-green-50 text-green-700"
+                ? "border-red-500/30 bg-red-950/40 text-red-300"
+                : "border-green-500/30 bg-green-950/40 text-green-300"
             }`}
           >
             {message.text}
@@ -139,7 +120,10 @@ function AdminLoginPage() {
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
-            <label htmlFor="admin-email" className="mb-1 block text-xs font-bold uppercase tracking-[0.18em] text-[#C19A6B]">
+            <label
+              htmlFor="admin-email"
+              className="mb-1 block text-xs font-bold uppercase tracking-[0.18em] text-[#C19A6B]"
+            >
               Admin Email
             </label>
             <input
@@ -154,7 +138,10 @@ function AdminLoginPage() {
           </div>
 
           <div>
-            <label htmlFor="admin-password" className="mb-1 block text-xs font-bold uppercase tracking-[0.18em] text-[#C19A6B]">
+            <label
+              htmlFor="admin-password"
+              className="mb-1 block text-xs font-bold uppercase tracking-[0.18em] text-[#C19A6B]"
+            >
               Password
             </label>
             <input
@@ -171,11 +158,24 @@ function AdminLoginPage() {
           <button
             type="submit"
             disabled={busy}
-            className="w-full rounded-xl bg-[#D4A017] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#B98B12] disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full rounded-xl bg-[#D4A017] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#B98B12] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
           >
             {busy ? "Signing in..." : "Access Dashboard"}
           </button>
         </form>
+
+        <div className="mt-6 p-3 rounded-xl bg-[#171513]/60 border border-[#4A3A2B]/60 text-xs text-[#C19A6B]">
+          <p className="font-semibold text-[#F5EBDD] mb-1">Default Admin Logins:</p>
+          <p>
+            Super Admin: <span className="font-mono text-[#D4A017]">admin@karachibites.com</span> /{" "}
+            <span className="font-mono text-[#D4A017]">Admin@12345</span>
+          </p>
+          <p>
+            Restaurant Admin:{" "}
+            <span className="font-mono text-[#D4A017]">owner1@karachibites.com</span> /{" "}
+            <span className="font-mono text-[#D4A017]">Restaurant@123</span>
+          </p>
+        </div>
       </div>
     </div>
   );

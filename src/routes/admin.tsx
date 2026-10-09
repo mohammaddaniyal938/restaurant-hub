@@ -2,9 +2,8 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import AdminDashboard from "@/components/Dashboard/AdminDashboard";
 import Toast from "@/components/Toast";
-import { supabase } from "@/integrations/supabase/client";
 import { AuthProvider, useAuth } from "@/lib/auth-context.jsx";
-import { supabaseService } from "@/services/supabaseService";
+import { apiService } from "@/services/apiService";
 import { fireConfetti } from "@/utils/confetti";
 
 export const Route = createFileRoute("/admin")({
@@ -31,13 +30,13 @@ function AdminDashboardPage() {
   };
 
   const loadProducts = async () => {
-    const data = await supabaseService.getProducts();
-    setProducts(data);
+    const data = await apiService.getProducts();
+    setProducts(data || []);
   };
 
   const loadOrders = async () => {
-    const data = await supabaseService.getOrders();
-    setOrders(data);
+    const data = await apiService.getOrders();
+    setOrders(data || []);
   };
 
   useEffect(() => {
@@ -53,32 +52,44 @@ function AdminDashboardPage() {
   }, [auth.loading, auth.user, auth.isAdmin, navigate]);
 
   const handleAddProduct = async (productData) => {
-    const created = await supabaseService.addProduct(productData);
+    const created = await apiService.addProduct(productData);
     setProducts((prev) => [created, ...prev]);
+    showToast(`Added "${created.title}" to the menu! 🎉`);
   };
 
   const handleUpdateProduct = async (id, updates) => {
-    const updated = await supabaseService.updateProduct(id, updates);
-    setProducts((prev) => prev.map((p) => (String(p.id) === String(id) ? { ...p, ...updated } : p)));
+    const updated = await apiService.updateProduct(id, updates);
+    if (updated) {
+      setProducts((prev) =>
+        prev.map((p) => (String(p.id) === String(id) ? { ...p, ...updated } : p)),
+      );
+      showToast("Dish details updated!");
+    }
   };
 
   const handleDeleteProduct = async (id) => {
-    await supabaseService.deleteProduct(id);
+    await apiService.deleteProduct(id);
     setProducts((prev) => prev.filter((p) => String(p.id) !== String(id)));
+    showToast("Dish removed from menu");
   };
 
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
-    await supabaseService.updateOrderStatus(orderId, newStatus);
-    setOrders((prev) => prev.map((order) => (order.orderId === orderId ? { ...order, status: newStatus } : order)));
+    await apiService.updateOrderStatus(orderId, newStatus);
+    setOrders((prev) =>
+      prev.map((order) =>
+        order.orderId === orderId || order.id === orderId ? { ...order, status: newStatus } : order,
+      ),
+    );
+    showToast(`Order status changed to "${newStatus}"`);
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    await auth.signOut();
     navigate({ to: "/admin-login", replace: true });
   };
 
   const handleConfirmOrder = async (orderData) => {
-    const placed = await supabaseService.placeOrder(orderData);
+    const placed = await apiService.placeOrder(orderData);
     fireConfetti();
     setOrders((prev) => [placed, ...prev]);
     showToast(`Order ${placed.orderId} placed successfully! 🎉`);

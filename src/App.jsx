@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { supabaseService } from "./services/supabaseService";
+import { apiService } from "./services/apiService";
 import { fireConfetti } from "./utils/confetti";
 
 import Header from "./components/Header";
@@ -31,7 +31,7 @@ export default function App() {
   const [storefrontPage, setStorefrontPage] = useState("home");
 
   // ==========================================
-  // 1. PRODUCTS & SUPABASE DATA
+  // 1. PRODUCTS & BACKEND API DATA
   // ==========================================
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -41,7 +41,7 @@ export default function App() {
 
   const loadProducts = async () => {
     setLoading(true);
-    const data = await supabaseService.getProducts();
+    const data = await apiService.getProducts();
     setProducts(data);
     setLoading(false);
   };
@@ -56,21 +56,21 @@ export default function App() {
   }, []);
 
   // ==========================================
-  // 2. ORDERS & REALTIME SUBSCRIPTION
+  // 2. ORDERS & LIVE SYNC
   // ==========================================
   const [orders, setOrders] = useState([]);
 
   const loadOrders = async () => {
-    const data = await supabaseService.getOrders();
+    const data = await apiService.getOrders();
     setOrders(data);
   };
 
   useEffect(() => {
     const timer = setTimeout(loadOrders, 0);
 
-    // Subscribe to realtime postgres updates
-    const unsubscribe = supabaseService.subscribeToOrders((payload) => {
-      console.log("Realtime order payload received:", payload);
+    // Subscribe to live order updates
+    const unsubscribe = apiService.subscribeToOrders((payload) => {
+      console.log("Live order update received:", payload);
       loadOrders();
     });
 
@@ -409,8 +409,8 @@ export default function App() {
   };
 
   const handleConfirmOrder = async (orderData) => {
-    // Save via Supabase Service before showing confirmation.
-    const placed = await supabaseService.placeOrder(orderData);
+    // Save via backend API service before showing confirmation.
+    const placed = await apiService.placeOrder(orderData);
 
     fireConfetti();
 
@@ -434,24 +434,24 @@ export default function App() {
   // 10. ADMIN DASHBOARD OPERATIONS (CRUD)
   // ==========================================
   const handleAddProduct = async (productData) => {
-    const created = await supabaseService.addProduct(productData);
+    const created = await apiService.addProduct(productData);
     setProducts((prev) => [created, ...prev]);
   };
 
   const handleUpdateProduct = async (id, updates) => {
-    const updated = await supabaseService.updateProduct(id, updates);
+    const updated = await apiService.updateProduct(id, updates);
     setProducts((prev) =>
       prev.map((p) => (String(p.id) === String(id) ? { ...p, ...updated } : p)),
     );
   };
 
   const handleDeleteProduct = async (id) => {
-    await supabaseService.deleteProduct(id);
+    await apiService.deleteProduct(id);
     setProducts((prev) => prev.filter((p) => String(p.id) !== String(id)));
   };
 
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
-    await supabaseService.updateOrderStatus(orderId, newStatus);
+    await apiService.updateOrderStatus(orderId, newStatus);
     setOrders((prev) => prev.map((o) => (o.orderId === orderId ? { ...o, status: newStatus } : o)));
     if (activeTrackingOrder && activeTrackingOrder.orderId === orderId) {
       setActiveTrackingOrder((prev) => ({ ...prev, status: newStatus }));
@@ -472,7 +472,7 @@ export default function App() {
             Karachi<span className="text-[#D4A017]">Bites</span>
           </h2>
           <p className="text-xs text-[#C19A6B] mt-2 font-medium">
-            Fetching fresh menu from Supabase...
+            Fetching fresh menu from Backend API...
           </p>
         </div>
       </div>
@@ -672,7 +672,7 @@ export default function App() {
 
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-white/50 gap-3">
             <p>
-              © {new Date().getFullYear()} Karachi Bites. All rights reserved. Powered by Supabase
+              © {new Date().getFullYear()} Karachi Bites. All rights reserved. Express & MongoDB
               Backend.
             </p>
             <div className="flex gap-4">
@@ -770,7 +770,7 @@ export default function App() {
         }}
         onClearHistory={() => {
           setOrders([]);
-          supabaseService.clearLocalOrderHistory();
+          apiService.clearLocalOrderHistory();
           showToast("Order history cleared");
         }}
       />

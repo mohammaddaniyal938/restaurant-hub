@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { createPublicClient, json, preflight } from "@/lib/api-helpers.server";
+import { backendFetch, json, preflight } from "@/lib/api-helpers.server";
 
-const MENU_COLUMNS =
-  "id, title, description, price, category, image, rating, reviews_count, is_spicy, is_veg, badge, calories, prep_time, ingredients, addons, in_stock";
+interface RestaurantItem {
+  _id?: string;
+  name?: string;
+}
 
 /** GET /api/public/menu — public menu listing with optional filters. */
 export const Route = createFileRoute("/api/public/menu")({
@@ -11,29 +13,32 @@ export const Route = createFileRoute("/api/public/menu")({
       OPTIONS: async () => preflight(),
       GET: async ({ request }) => {
         const url = new URL(request.url);
-        const category = url.searchParams.get("category");
-        const search = url.searchParams.get("search");
-        const limit = Math.min(
-          Math.max(Number(url.searchParams.get("limit") ?? 100) || 100, 1),
-          200,
-        );
-        const offset = Math.max(Number(url.searchParams.get("offset") ?? 0) || 0, 0);
+        const search = url.searchParams.get("search") || "";
+        const category = url.searchParams.get("category") || "";
 
-        const supabase = createPublicClient();
-        let query = supabase
-          .from("products")
-          .select(MENU_COLUMNS)
-          .eq("in_stock", true)
-          .order("id", { ascending: true })
-          .range(offset, offset + limit - 1);
+        try {
+          const restRes = await backendFetch("/restaurants");
+          const restData = (await restRes.json()) as { data?: RestaurantItem[] };
+          const restaurants = restData?.data || [];
+          const kb =
+            restaurants.find((r) => r.name?.toLowerCase().includes("karachi bites")) ||
+            restaurants[0];
 
-        if (category && category !== "All") query = query.eq("category", category);
-        if (search && search.trim())
-          query = query.ilike("title", `%${search.trim().slice(0, 80)}%`);
+          if (kb?._id) {
+            const params = new URLSearchParams();
+            if (search) params.set("search", search);
+            if (category && category !== "All") params.set("category", category);
+            params.set("limit", "100");
 
-        const { data, error } = await query;
-        if (error) return json({ error: "Could not load the menu" }, 500);
-        return json({ items: data ?? [], limit, offset });
+            const menuRes = await backendFetch(`/restaurants/${kb._id}/menu?${params.toString()}`);
+            const menuData = (await menuRes.json()) as { data?: unknown[] };
+            return json({ items: menuData?.data ?? [] });
+          }
+          return json({ items: [] });
+        } catch (error) {
+          const message = error instanceof Error ? error.message : "Internal error";
+          return json({ error: "Could not load the menu", message }, 500);
+        }
       },
     },
   },
